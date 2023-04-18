@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:techabla/src/pages/configPage/config_page.dart';
 import 'package:techabla/src/pages/favoritesPage/favorites_page.dart';
 import 'package:techabla/src/pages/utils/transitions.dart';
+import 'package:techabla/src/provider/favorites_provider.dart';
 import 'package:techabla/src/provider/tts_provider.dart';
 
 class HomePage extends StatefulWidget {
@@ -22,6 +23,8 @@ class TecHablaState extends State<HomePage> {
     textEditingController.text = text;
     final ttsProvider = Provider.of<TTSProvider>(context, listen: false);
     ttsProvider.initLanguages();
+    final favProvider = Provider.of<FavoritesProvider>(context, listen: false);
+    favProvider.openFavoritesBox();
   }
 
   @override
@@ -148,6 +151,10 @@ class TecHablaState extends State<HomePage> {
                   ),
                   onTap: () {
                     ttsProvider.speak(text: text);
+                    final FocusScopeNode focus = FocusScope.of(context);
+                    if (!focus.hasPrimaryFocus && focus.hasFocus) {
+                      FocusManager.instance.primaryFocus!.unfocus();
+                    }
                   },
                 ),
               ),
