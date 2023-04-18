@@ -14,6 +14,7 @@ class ConfigPage extends StatelessWidget {
           'Configuraciones',
           style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
         ),
+        backgroundColor: Color(0xFF003A70),
         centerTitle: true,
         elevation: 0,
       ),
@@ -31,6 +32,7 @@ class ConfigPage extends StatelessWidget {
                     style: TextStyle(
                       fontSize: MediaQuery.of(context).size.width * 0.06,
                       fontWeight: FontWeight.bold,
+                      color: Color(0xFF003A70),
                     ),
                   ),
                   const Spacer(),
@@ -38,13 +40,15 @@ class ConfigPage extends StatelessWidget {
                     onTap: () {
                       ttsProvider.setVolume(-0.05);
                     },
+                    borderRadius: BorderRadius.circular(500),
                     child: Container(
                       alignment: Alignment.center,
                       width: MediaQuery.of(context).size.width * 0.1,
                       height: MediaQuery.of(context).size.width * 0.1,
                       decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(500),
-                          color: Colors.blue),
+                        borderRadius: BorderRadius.circular(500),
+                        color: Color(0xFF003A70),
+                      ),
                       child: const Icon(
                         Icons.chevron_left,
                         color: Colors.white,
@@ -59,6 +63,7 @@ class ConfigPage extends StatelessWidget {
                       style: TextStyle(
                         fontSize: MediaQuery.of(context).size.width * 0.06,
                         fontWeight: FontWeight.normal,
+                        color: Color(0xFF003A70),
                       ),
                     ),
                   ),
@@ -66,13 +71,15 @@ class ConfigPage extends StatelessWidget {
                     onTap: () {
                       ttsProvider.setVolume(0.05);
                     },
+                    borderRadius: BorderRadius.circular(500),
                     child: Container(
                       alignment: Alignment.center,
                       width: MediaQuery.of(context).size.width * 0.1,
                       height: MediaQuery.of(context).size.width * 0.1,
                       decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(500),
-                          color: Colors.blue),
+                        borderRadius: BorderRadius.circular(500),
+                        color: Color(0xFF003A70),
+                      ),
                       child: const Icon(
                         Icons.chevron_right,
                         color: Colors.white,
@@ -94,6 +101,7 @@ class ConfigPage extends StatelessWidget {
                     style: TextStyle(
                       fontSize: MediaQuery.of(context).size.width * 0.06,
                       fontWeight: FontWeight.bold,
+                      color: Color(0xFF003A70),
                     ),
                   ),
                   const Spacer(),
@@ -101,13 +109,15 @@ class ConfigPage extends StatelessWidget {
                     onTap: () {
                       ttsProvider.setRate(-0.05);
                     },
+                    borderRadius: BorderRadius.circular(500),
                     child: Container(
                       alignment: Alignment.center,
                       width: MediaQuery.of(context).size.width * 0.1,
                       height: MediaQuery.of(context).size.width * 0.1,
                       decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(500),
-                          color: Colors.blue),
+                        borderRadius: BorderRadius.circular(500),
+                        color: Color(0xFF003A70),
+                      ),
                       child: const Icon(
                         Icons.chevron_left,
                         color: Colors.white,
@@ -122,6 +132,7 @@ class ConfigPage extends StatelessWidget {
                       style: TextStyle(
                         fontSize: MediaQuery.of(context).size.width * 0.06,
                         fontWeight: FontWeight.normal,
+                        color: Color(0xFF003A70),
                       ),
                     ),
                   ),
@@ -129,13 +140,15 @@ class ConfigPage extends StatelessWidget {
                     onTap: () {
                       ttsProvider.setRate(0.05);
                     },
+                    borderRadius: BorderRadius.circular(500),
                     child: Container(
                       alignment: Alignment.center,
                       width: MediaQuery.of(context).size.width * 0.1,
                       height: MediaQuery.of(context).size.width * 0.1,
                       decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(500),
-                          color: Colors.blue),
+                        borderRadius: BorderRadius.circular(500),
+                        color: Color(0xFF003A70),
+                      ),
                       child: const Icon(
                         Icons.chevron_right,
                         color: Colors.white,
@@ -157,6 +170,7 @@ class ConfigPage extends StatelessWidget {
                     style: TextStyle(
                       fontSize: MediaQuery.of(context).size.width * 0.06,
                       fontWeight: FontWeight.bold,
+                      color: Color(0xFF003A70),
                     ),
                   ),
                   const Spacer(),
@@ -164,13 +178,15 @@ class ConfigPage extends StatelessWidget {
                     onTap: () {
                       ttsProvider.setPitch(-0.05);
                     },
+                    borderRadius: BorderRadius.circular(500),
                     child: Container(
                       alignment: Alignment.center,
                       width: MediaQuery.of(context).size.width * 0.1,
                       height: MediaQuery.of(context).size.width * 0.1,
                       decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(500),
-                          color: Colors.blue),
+                        borderRadius: BorderRadius.circular(500),
+                        color: Color(0xFF003A70),
+                      ),
                       child: const Icon(
                         Icons.chevron_left,
                         color: Colors.white,
@@ -192,13 +208,15 @@ class ConfigPage extends StatelessWidget {
                     onTap: () {
                       ttsProvider.setPitch(0.05);
                     },
+                    borderRadius: BorderRadius.circular(500),
                     child: Container(
                       alignment: Alignment.center,
                       width: MediaQuery.of(context).size.width * 0.1,
                       height: MediaQuery.of(context).size.width * 0.1,
                       decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(500),
-                          color: Colors.blue),
+                        borderRadius: BorderRadius.circular(500),
+                        color: Color(0xFF003A70),
+                      ),
                       child: const Icon(
                         Icons.chevron_right,
                         color: Colors.white,
@@ -233,6 +251,35 @@ class ConfigPage extends StatelessWidget {
                 onTap: () {
                   ttsProvider.speak(text: 'Esto es una prueba de voz');
                 },
+              ),
+            ),
+            Spacer(),
+            Container(
+              alignment: Alignment.center,
+              child: Column(
+                children: [
+                  Text(
+                    'Desarrollado por'.toUpperCase(),
+                    style: TextStyle(
+                      fontSize: MediaQuery.of(context).size.width * 0.03,
+                      color: Color(0xFF003A70),
+                    ),
+                  ),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.width * 0.02,
+                  ),
+                  Text(
+                    'Clínica de Tecnología Asistiva, FLENI',
+                    style: TextStyle(
+                      fontSize: MediaQuery.of(context).size.width * 0.04,
+                      color: Color(0xFF003A70),
+                    ),
+                  ),
+                  Image.asset(
+                    'assets/images/fleni-logo.png',
+                    width: MediaQuery.of(context).size.width * 0.6,
+                  ),
+                ],
               ),
             ),
           ],

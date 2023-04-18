@@ -28,6 +28,7 @@ class _FavoritesPageState extends State<FavoritesPage> {
             'Favoritos',
             style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
           ),
+          backgroundColor: Color(0xFF003A70),
           centerTitle: true,
           elevation: 0,
         ),
@@ -114,6 +115,7 @@ class _FavoritesPageState extends State<FavoritesPage> {
                       style: TextStyle(
                         fontSize: MediaQuery.of(context).size.width * 0.06,
                         fontWeight: FontWeight.bold,
+                        color: Color(0xFF003A70),
                       ),
                     ),
                   ),
@@ -150,7 +152,10 @@ class _FavoritesPageState extends State<FavoritesPage> {
                               padding: const EdgeInsets.all(4.0),
                               child: Text(
                                 box.getAt(index).text,
-                                style: const TextStyle(fontSize: 24),
+                                style: const TextStyle(
+                                  fontSize: 24,
+                                  color: Color(0xFF003A70),
+                                ),
                               ),
                             ),
                           ),

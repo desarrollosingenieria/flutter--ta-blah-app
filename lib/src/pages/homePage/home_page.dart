@@ -37,6 +37,7 @@ class TecHablaState extends State<HomePage> {
           'TecHabla',
           style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
         ),
+        backgroundColor: Color(0xFF003A70),
         centerTitle: true,
         elevation: 0,
         actions: [
