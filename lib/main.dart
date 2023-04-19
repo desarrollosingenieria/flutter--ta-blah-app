@@ -3,7 +3,8 @@ import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:techabla/src/data/local/local_db.dart';
 import 'package:techabla/src/data/local/user_preferences.dart';
-import 'package:techabla/src/pages/app.dart';
+import 'package:techabla/src/app.dart';
+import 'package:techabla/src/provider/config_provider.dart';
 import 'package:techabla/src/provider/favorites_provider.dart';
 import 'package:techabla/src/provider/tts_provider.dart';
 
@@ -29,6 +30,9 @@ Future<void> main() async {
         ),
         ChangeNotifierProvider(
           create: (BuildContext context) => FavoritesProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (BuildContext context) => ConfigProvider(),
         ),
       ],
       child: const TecHabla(),

@@ -42,22 +42,22 @@ class UserPreferences {
     _prefs.setDouble('volume', value);
   }
 
-  // GET y SET de languageCode
-  String get languageCode {
-    return _prefs.getString('languageCode') ?? '';
+  // GET y SET de factorSize
+  double get factorSize {
+    return _prefs.getDouble('factorSize') ?? 0.04;
   }
 
-  set languageCode(String code) {
-    _prefs.setString('languageCode', code);
+  set factorSize(double factor) {
+    _prefs.setDouble('factorSize', factor);
   }
 
-  // GET y SET de language
-  String get language {
-    return _prefs.getString('language') ?? '';
+  // GET y SET del modo de tema
+  String get themeMode {
+    return _prefs.getString('themeMode') ?? 'light';
   }
 
-  set languagee(String lang) {
-    _prefs.setString('language', lang);
+  set themeMode(String mode) {
+    _prefs.setString('themeMode', mode);
   }
 
   Future<bool> cleanPrefs() async {

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:techabla/src/provider/config_provider.dart';
 import 'package:techabla/src/provider/favorites_provider.dart';
 import 'package:techabla/src/provider/tts_provider.dart';
 
@@ -17,6 +19,7 @@ class _FavoritesPageState extends State<FavoritesPage> {
     final TextEditingController controller = TextEditingController();
     final favProvider = Provider.of<FavoritesProvider>(context);
     final ttsProvider = Provider.of<TTSProvider>(context);
+    final configProvider = Provider.of<ConfigProvider>(context);
     return NotificationListener<OverscrollIndicatorNotification>(
       onNotification: (overScroll) {
         overScroll.disallowIndicator();
@@ -24,11 +27,16 @@ class _FavoritesPageState extends State<FavoritesPage> {
       },
       child: Scaffold(
         appBar: AppBar(
-          title: const Text(
+          title: Text(
             'Favoritos',
-            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            style: TextStyle(
+                fontSize: MediaQuery.of(context).size.width *
+                    configProvider.factorSize!,
+                fontWeight: FontWeight.bold,
+                color: Colors.white),
           ),
-          backgroundColor: Color(0xFF003A70),
+          iconTheme: const IconThemeData(color: Colors.white),
+          backgroundColor: const Color(0xFF003A70),
           centerTitle: true,
           elevation: 0,
         ),
@@ -43,11 +51,14 @@ class _FavoritesPageState extends State<FavoritesPage> {
                     child: TextField(
                       controller: controller,
                       style: TextStyle(
-                        fontSize: MediaQuery.of(context).size.width * 0.06,
+                        fontSize: MediaQuery.of(context).size.width *
+                            1.2 *
+                            configProvider.factorSize!,
                         fontWeight: FontWeight.bold,
                         color: Colors.black,
                       ),
-                      maxLines: 1,
+                      minLines: 1,
+                      maxLines: 2,
                       decoration: const InputDecoration(
                           border: OutlineInputBorder(),
                           hintText: 'Agregar favoritos...'),
@@ -60,46 +71,49 @@ class _FavoritesPageState extends State<FavoritesPage> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                        InkWell(
-                          onTap: () {
-                            if (controller.text.isNotEmpty) {
-                              favProvider.setFavorite(controller.text);
-                              controller.clear();
-                              final FocusScopeNode focus =
-                                  FocusScope.of(context);
-                              if (!focus.hasPrimaryFocus && focus.hasFocus) {
-                                FocusManager.instance.primaryFocus!.unfocus();
+                        Material(
+                          borderRadius: BorderRadius.circular(16),
+                          color: Colors.blue,
+                          child: InkWell(
+                            borderRadius: BorderRadius.circular(16),
+                            onTap: () {
+                              if (controller.text.isNotEmpty) {
+                                HapticFeedback.lightImpact();
+                                favProvider.setFavorite(controller.text);
+                                controller.clear();
+                                final FocusScopeNode focus =
+                                    FocusScope.of(context);
+                                if (!focus.hasPrimaryFocus && focus.hasFocus) {
+                                  FocusManager.instance.primaryFocus!.unfocus();
+                                }
                               }
-                            }
-                          },
-                          child: Container(
-                            padding: const EdgeInsets.all(20),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(16),
-                              color: Colors.blue,
-                            ),
-                            alignment: Alignment.center,
-                            child: Row(
-                              children: [
-                                const Icon(
-                                  Icons.add,
-                                  color: Colors.white,
-                                ),
-                                SizedBox(
-                                  width:
-                                      MediaQuery.of(context).size.width * 0.02,
-                                ),
-                                Text(
-                                  'Agregar'.toUpperCase(),
-                                  style: TextStyle(
-                                    fontSize:
-                                        MediaQuery.of(context).size.width *
-                                            0.04,
-                                    fontWeight: FontWeight.bold,
+                            },
+                            child: Container(
+                              padding: const EdgeInsets.all(20),
+                              alignment: Alignment.center,
+                              child: Row(
+                                children: [
+                                  const Icon(
+                                    Icons.add,
                                     color: Colors.white,
                                   ),
-                                ),
-                              ],
+                                  SizedBox(
+                                    width: MediaQuery.of(context).size.width *
+                                        0.02,
+                                  ),
+                                  Text(
+                                    'Agregar'.toUpperCase(),
+                                    style: TextStyle(
+                                      fontSize:
+                                          MediaQuery.of(context).size.width *
+                                              0.68 *
+                                              configProvider.factorSize!,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
                         ),
@@ -113,9 +127,10 @@ class _FavoritesPageState extends State<FavoritesPage> {
                     child: Text(
                       'Lista de favoritos',
                       style: TextStyle(
-                        fontSize: MediaQuery.of(context).size.width * 0.06,
+                        fontSize: MediaQuery.of(context).size.width *
+                            configProvider.factorSize!,
                         fontWeight: FontWeight.bold,
-                        color: Color(0xFF003A70),
+                        color: const Color(0xFF003A70),
                       ),
                     ),
                   ),
@@ -144,6 +159,7 @@ class _FavoritesPageState extends State<FavoritesPage> {
                         },
                         child: InkWell(
                           onTap: () {
+                            HapticFeedback.lightImpact();
                             ttsProvider.speak(text: box.getAt(index).text);
                           },
                           child: ListTile(
@@ -152,9 +168,11 @@ class _FavoritesPageState extends State<FavoritesPage> {
                               padding: const EdgeInsets.all(4.0),
                               child: Text(
                                 box.getAt(index).text,
-                                style: const TextStyle(
-                                  fontSize: 24,
-                                  color: Color(0xFF003A70),
+                                style: TextStyle(
+                                  fontSize: MediaQuery.of(context).size.width *
+                                      0.8 *
+                                      configProvider.factorSize!,
+                                  color: const Color(0xFF003A70),
                                 ),
                               ),
                             ),
