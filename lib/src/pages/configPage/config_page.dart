@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:techabla/src/provider/tts_provider.dart';
 
@@ -47,7 +48,9 @@ class ConfigPage extends StatelessWidget {
                       height: MediaQuery.of(context).size.width * 0.1,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(500),
-                        color: Color(0xFF003A70),
+                        color: ttsProvider.volume > 0.05
+                            ? const Color(0xFF003A70)
+                            : Colors.grey,
                       ),
                       child: const Icon(
                         Icons.chevron_left,
@@ -78,7 +81,9 @@ class ConfigPage extends StatelessWidget {
                       height: MediaQuery.of(context).size.width * 0.1,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(500),
-                        color: Color(0xFF003A70),
+                        color: ttsProvider.volume < 1
+                            ? const Color(0xFF003A70)
+                            : Colors.grey,
                       ),
                       child: const Icon(
                         Icons.chevron_right,
@@ -116,7 +121,9 @@ class ConfigPage extends StatelessWidget {
                       height: MediaQuery.of(context).size.width * 0.1,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(500),
-                        color: Color(0xFF003A70),
+                        color: ttsProvider.rate > 0.05
+                            ? const Color(0xFF003A70)
+                            : Colors.grey,
                       ),
                       child: const Icon(
                         Icons.chevron_left,
@@ -132,7 +139,7 @@ class ConfigPage extends StatelessWidget {
                       style: TextStyle(
                         fontSize: MediaQuery.of(context).size.width * 0.06,
                         fontWeight: FontWeight.normal,
-                        color: Color(0xFF003A70),
+                        color: const Color(0xFF003A70),
                       ),
                     ),
                   ),
@@ -147,7 +154,9 @@ class ConfigPage extends StatelessWidget {
                       height: MediaQuery.of(context).size.width * 0.1,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(500),
-                        color: Color(0xFF003A70),
+                        color: ttsProvider.rate < 1
+                            ? const Color(0xFF003A70)
+                            : Colors.grey,
                       ),
                       child: const Icon(
                         Icons.chevron_right,
@@ -185,7 +194,9 @@ class ConfigPage extends StatelessWidget {
                       height: MediaQuery.of(context).size.width * 0.1,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(500),
-                        color: Color(0xFF003A70),
+                        color: ttsProvider.pitch > 0.05
+                            ? const Color(0xFF003A70)
+                            : Colors.grey,
                       ),
                       child: const Icon(
                         Icons.chevron_left,
@@ -215,7 +226,9 @@ class ConfigPage extends StatelessWidget {
                       height: MediaQuery.of(context).size.width * 0.1,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(500),
-                        color: Color(0xFF003A70),
+                        color: ttsProvider.pitch < 1
+                            ? const Color(0xFF003A70)
+                            : Colors.grey,
                       ),
                       child: const Icon(
                         Icons.chevron_right,
@@ -275,9 +288,15 @@ class ConfigPage extends StatelessWidget {
                       color: Color(0xFF003A70),
                     ),
                   ),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.width * 0.08,
+                  ),
                   Image.asset(
                     'assets/images/fleni-logo.png',
                     width: MediaQuery.of(context).size.width * 0.6,
+                  ),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.width * 0.08,
                   ),
                 ],
               ),

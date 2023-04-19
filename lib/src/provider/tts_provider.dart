@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:techabla/src/data/local/user_preferences.dart';
 
@@ -27,16 +28,20 @@ class TTSProvider with ChangeNotifier {
   }
 
   Future<void> setVolume(double volume) async {
-    if (_volume + volume > 0 && _volume + volume <= 1) {
+    if (_volume + volume > 0 && _volume + volume <= 1.04) {
+      HapticFeedback.lightImpact();
       _volume += volume;
       prefs.volume = double.parse(_volume.toStringAsFixed(2));
+      print(prefs.volume);
       await _tts.setVolume(_volume);
+
       notifyListeners();
     }
   }
 
   Future<void> setPitch(double pitch) async {
     if (_pitch + pitch > 0 && _pitch + pitch <= 1) {
+      HapticFeedback.lightImpact();
       _pitch += pitch;
       prefs.pitch = _pitch;
       await _tts.setPitch(_pitch);
@@ -46,6 +51,7 @@ class TTSProvider with ChangeNotifier {
 
   Future<void> setRate(double rate) async {
     if (_rate + rate > 0 && _rate + rate <= 1) {
+      HapticFeedback.lightImpact();
       _rate += rate;
       prefs.rate = _rate;
       await _tts.setSpeechRate(_rate);
