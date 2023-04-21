@@ -11,7 +11,7 @@ import 'package:techabla/src/provider/tts_provider.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   // orientacion vertical
-  await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+  //await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   // statusbar transparente
   SystemChrome.setSystemUIOverlayStyle(
       const SystemUiOverlayStyle(statusBarColor: Colors.transparent));

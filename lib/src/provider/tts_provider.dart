@@ -10,6 +10,7 @@ class TTSProvider with ChangeNotifier {
   double _volume = 1; // Range: 0-1
   double _rate = 0.5; // Range: 0-2
   double _pitch = 1; // Range: 0-2
+  String _textToSpeech = '';
 
   String? _language;
   String? _languageCode;
@@ -24,6 +25,9 @@ class TTSProvider with ChangeNotifier {
   }
 
   void speak({required String text}) async {
+    await _tts.setVolume(_volume);
+    await _tts.setPitch(_pitch);
+    await _tts.setSpeechRate(_rate);
     await _tts.speak(text);
   }
 
@@ -32,7 +36,6 @@ class TTSProvider with ChangeNotifier {
       HapticFeedback.lightImpact();
       _volume += volume;
       prefs.volume = double.parse(_volume.toStringAsFixed(2));
-      print(prefs.volume);
       await _tts.setVolume(_volume);
 
       notifyListeners();
@@ -43,7 +46,7 @@ class TTSProvider with ChangeNotifier {
     if (_pitch + pitch > 0 && _pitch + pitch <= 1) {
       HapticFeedback.lightImpact();
       _pitch += pitch;
-      prefs.pitch = _pitch;
+      prefs.pitch = double.parse(_pitch.toStringAsFixed(2));
       await _tts.setPitch(_pitch);
       notifyListeners();
     }
@@ -53,10 +56,15 @@ class TTSProvider with ChangeNotifier {
     if (_rate + rate > 0 && _rate + rate <= 1) {
       HapticFeedback.lightImpact();
       _rate += rate;
-      prefs.rate = _rate;
+      prefs.rate = double.parse(_rate.toStringAsFixed(2));
       await _tts.setSpeechRate(_rate);
       notifyListeners();
     }
+  }
+
+  void setText(String text) {
+    _textToSpeech = text;
+    notifyListeners();
   }
 
   String get defaultLanguage => _defaultLanguage;
@@ -65,5 +73,6 @@ class TTSProvider with ChangeNotifier {
   double get pitch => _pitch;
   double get rate => _rate;
   double get volume => _volume;
+  String get textToSpeech => _textToSpeech;
   FlutterTts get tts => _tts;
 }
