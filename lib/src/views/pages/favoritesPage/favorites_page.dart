@@ -97,7 +97,13 @@ class _FavoritesPageState extends State<FavoritesPage> {
                             ttsProvider.speak(text: box.getAt(index).text);
                           },
                           child: ListTile(
-                            trailing: const Icon(Icons.chevron_left),
+                            trailing: Icon(
+                              Icons.chevron_left,
+                              size: MediaQuery.of(context).orientation ==
+                                      Orientation.portrait
+                                  ? MediaQuery.of(context).size.width * 0.06
+                                  : MediaQuery.of(context).size.height * 0.06,
+                            ),
                             title: Padding(
                               padding: const EdgeInsets.all(4.0),
                               child: Text(

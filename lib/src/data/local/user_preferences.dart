@@ -51,6 +51,15 @@ class UserPreferences {
     _prefs.setDouble('factorSize', factor);
   }
 
+  // GET y SET de factorSize
+  String get factorText {
+    return _prefs.getString('factorText') ?? 'predeterminado';
+  }
+
+  set factorText(String factor) {
+    _prefs.setString('factorText', factor);
+  }
+
   // GET y SET del modo de tema
   String get themeMode {
     return _prefs.getString('themeMode') ?? 'light';

@@ -2,15 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:techabla/src/provider/config_provider.dart';
 import 'package:techabla/src/provider/tts_provider.dart';
-import 'package:techabla/src/utils/responsive.dart';
 
-class ConfigPage extends StatelessWidget {
+class ConfigPage extends StatefulWidget {
   const ConfigPage({super.key});
 
+  @override
+  State<ConfigPage> createState() => _ConfigPageState();
+}
+
+class _ConfigPageState extends State<ConfigPage> {
   @override
   Widget build(BuildContext context) {
     final ttsProvider = Provider.of<TTSProvider>(context);
     final configProvider = Provider.of<ConfigProvider>(context);
+    Size mq = MediaQuery.of(context).size;
+    Orientation orientation = MediaQuery.of(context).orientation;
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -40,12 +46,9 @@ class ConfigPage extends StatelessWidget {
                       Text(
                         'Volumen',
                         style: TextStyle(
-                          fontSize: MediaQuery.of(context).orientation ==
-                                  Orientation.portrait
-                              ? MediaQuery.of(context).size.width *
-                                  configProvider.factorSize!
-                              : MediaQuery.of(context).size.height *
-                                  configProvider.factorSize!,
+                          fontSize: orientation == Orientation.portrait
+                              ? mq.width * configProvider.factorSize!
+                              : mq.height * configProvider.factorSize!,
                           fontWeight: FontWeight.bold,
                           color: const Color(0xFF003A70),
                         ),
@@ -58,14 +61,12 @@ class ConfigPage extends StatelessWidget {
                         borderRadius: BorderRadius.circular(500),
                         child: Container(
                           alignment: Alignment.center,
-                          width: MediaQuery.of(context).orientation ==
-                                  Orientation.portrait
-                              ? MediaQuery.of(context).size.width * 0.1
-                              : MediaQuery.of(context).size.height * 0.1,
-                          height: MediaQuery.of(context).orientation ==
-                                  Orientation.portrait
-                              ? MediaQuery.of(context).size.width * 0.1
-                              : MediaQuery.of(context).size.height * 0.1,
+                          width: orientation == Orientation.portrait
+                              ? mq.width * 0.1
+                              : mq.height * 0.1,
+                          height: orientation == Orientation.portrait
+                              ? mq.width * 0.1
+                              : mq.height * 0.1,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(500),
                             color: ttsProvider.volume > 0.05
@@ -75,28 +76,23 @@ class ConfigPage extends StatelessWidget {
                           child: Icon(
                             Icons.chevron_left,
                             color: Colors.white,
-                            size: MediaQuery.of(context).orientation ==
-                                    Orientation.portrait
-                                ? MediaQuery.of(context).size.width * 0.06
-                                : MediaQuery.of(context).size.height * 0.06,
+                            size: orientation == Orientation.portrait
+                                ? mq.width * 0.06
+                                : mq.height * 0.06,
                           ),
                         ),
                       ),
                       Container(
                         alignment: Alignment.center,
-                        width: MediaQuery.of(context).orientation ==
-                                Orientation.portrait
-                            ? MediaQuery.of(context).size.width * 0.3
-                            : MediaQuery.of(context).size.height * 0.3,
+                        width: orientation == Orientation.portrait
+                            ? mq.width * 0.3
+                            : mq.height * 0.3,
                         child: Text(
                           '${(ttsProvider.volume * 100).round()}',
                           style: TextStyle(
-                            fontSize: MediaQuery.of(context).orientation ==
-                                    Orientation.portrait
-                                ? MediaQuery.of(context).size.width *
-                                    configProvider.factorSize!
-                                : MediaQuery.of(context).size.height *
-                                    configProvider.factorSize!,
+                            fontSize: orientation == Orientation.portrait
+                                ? mq.width * configProvider.factorSize!
+                                : mq.height * configProvider.factorSize!,
                             fontWeight: FontWeight.normal,
                             color: const Color(0xFF003A70),
                           ),
@@ -109,14 +105,12 @@ class ConfigPage extends StatelessWidget {
                         borderRadius: BorderRadius.circular(500),
                         child: Container(
                           alignment: Alignment.center,
-                          width: MediaQuery.of(context).orientation ==
-                                  Orientation.portrait
-                              ? MediaQuery.of(context).size.width * 0.1
-                              : MediaQuery.of(context).size.height * 0.1,
-                          height: MediaQuery.of(context).orientation ==
-                                  Orientation.portrait
-                              ? MediaQuery.of(context).size.width * 0.1
-                              : MediaQuery.of(context).size.height * 0.1,
+                          width: orientation == Orientation.portrait
+                              ? mq.width * 0.1
+                              : mq.height * 0.1,
+                          height: orientation == Orientation.portrait
+                              ? mq.width * 0.1
+                              : mq.height * 0.1,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(500),
                             color: ttsProvider.volume < 1
@@ -126,10 +120,9 @@ class ConfigPage extends StatelessWidget {
                           child: Icon(
                             Icons.chevron_right,
                             color: Colors.white,
-                            size: MediaQuery.of(context).orientation ==
-                                    Orientation.portrait
-                                ? MediaQuery.of(context).size.width * 0.06
-                                : MediaQuery.of(context).size.height * 0.06,
+                            size: orientation == Orientation.portrait
+                                ? mq.width * 0.06
+                                : mq.height * 0.06,
                           ),
                         ),
                       ),
@@ -137,10 +130,9 @@ class ConfigPage extends StatelessWidget {
                   ),
                 ),
                 SizedBox(
-                  height:
-                      MediaQuery.of(context).orientation == Orientation.portrait
-                          ? MediaQuery.of(context).size.width * 0.04
-                          : MediaQuery.of(context).size.height * 0.04,
+                  height: orientation == Orientation.portrait
+                      ? mq.width * 0.04
+                      : mq.height * 0.04,
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 20.0),
@@ -149,12 +141,9 @@ class ConfigPage extends StatelessWidget {
                       Text(
                         'Velocidad',
                         style: TextStyle(
-                          fontSize: MediaQuery.of(context).orientation ==
-                                  Orientation.portrait
-                              ? MediaQuery.of(context).size.width *
-                                  configProvider.factorSize!
-                              : MediaQuery.of(context).size.height *
-                                  configProvider.factorSize!,
+                          fontSize: orientation == Orientation.portrait
+                              ? mq.width * configProvider.factorSize!
+                              : mq.height * configProvider.factorSize!,
                           fontWeight: FontWeight.bold,
                           color: const Color(0xFF003A70),
                         ),
@@ -167,14 +156,12 @@ class ConfigPage extends StatelessWidget {
                         borderRadius: BorderRadius.circular(500),
                         child: Container(
                           alignment: Alignment.center,
-                          width: MediaQuery.of(context).orientation ==
-                                  Orientation.portrait
-                              ? MediaQuery.of(context).size.width * 0.1
-                              : MediaQuery.of(context).size.height * 0.1,
-                          height: MediaQuery.of(context).orientation ==
-                                  Orientation.portrait
-                              ? MediaQuery.of(context).size.width * 0.1
-                              : MediaQuery.of(context).size.height * 0.1,
+                          width: orientation == Orientation.portrait
+                              ? mq.width * 0.1
+                              : mq.height * 0.1,
+                          height: orientation == Orientation.portrait
+                              ? mq.width * 0.1
+                              : mq.height * 0.1,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(500),
                             color: ttsProvider.rate > 0.05
@@ -184,28 +171,23 @@ class ConfigPage extends StatelessWidget {
                           child: Icon(
                             Icons.chevron_left,
                             color: Colors.white,
-                            size: MediaQuery.of(context).orientation ==
-                                    Orientation.portrait
-                                ? MediaQuery.of(context).size.width * 0.06
-                                : MediaQuery.of(context).size.height * 0.06,
+                            size: orientation == Orientation.portrait
+                                ? mq.width * 0.06
+                                : mq.height * 0.06,
                           ),
                         ),
                       ),
                       Container(
                         alignment: Alignment.center,
-                        width: MediaQuery.of(context).orientation ==
-                                Orientation.portrait
-                            ? MediaQuery.of(context).size.width * 0.3
-                            : MediaQuery.of(context).size.height * 0.3,
+                        width: orientation == Orientation.portrait
+                            ? mq.width * 0.3
+                            : mq.height * 0.3,
                         child: Text(
                           '${(ttsProvider.rate * 100).round()}',
                           style: TextStyle(
-                            fontSize: MediaQuery.of(context).orientation ==
-                                    Orientation.portrait
-                                ? MediaQuery.of(context).size.width *
-                                    configProvider.factorSize!
-                                : MediaQuery.of(context).size.height *
-                                    configProvider.factorSize!,
+                            fontSize: orientation == Orientation.portrait
+                                ? mq.width * configProvider.factorSize!
+                                : mq.height * configProvider.factorSize!,
                             fontWeight: FontWeight.normal,
                             color: const Color(0xFF003A70),
                           ),
@@ -218,14 +200,12 @@ class ConfigPage extends StatelessWidget {
                         borderRadius: BorderRadius.circular(500),
                         child: Container(
                           alignment: Alignment.center,
-                          width: MediaQuery.of(context).orientation ==
-                                  Orientation.portrait
-                              ? MediaQuery.of(context).size.width * 0.1
-                              : MediaQuery.of(context).size.height * 0.1,
-                          height: MediaQuery.of(context).orientation ==
-                                  Orientation.portrait
-                              ? MediaQuery.of(context).size.width * 0.1
-                              : MediaQuery.of(context).size.height * 0.1,
+                          width: orientation == Orientation.portrait
+                              ? mq.width * 0.1
+                              : mq.height * 0.1,
+                          height: orientation == Orientation.portrait
+                              ? mq.width * 0.1
+                              : mq.height * 0.1,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(500),
                             color: ttsProvider.rate < 1
@@ -235,10 +215,9 @@ class ConfigPage extends StatelessWidget {
                           child: Icon(
                             Icons.chevron_right,
                             color: Colors.white,
-                            size: MediaQuery.of(context).orientation ==
-                                    Orientation.portrait
-                                ? MediaQuery.of(context).size.width * 0.06
-                                : MediaQuery.of(context).size.height * 0.06,
+                            size: orientation == Orientation.portrait
+                                ? mq.width * 0.06
+                                : mq.height * 0.06,
                           ),
                         ),
                       ),
@@ -246,10 +225,9 @@ class ConfigPage extends StatelessWidget {
                   ),
                 ),
                 SizedBox(
-                  height:
-                      MediaQuery.of(context).orientation == Orientation.portrait
-                          ? MediaQuery.of(context).size.width * 0.04
-                          : MediaQuery.of(context).size.height * 0.04,
+                  height: orientation == Orientation.portrait
+                      ? mq.width * 0.04
+                      : mq.height * 0.04,
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 20.0),
@@ -258,12 +236,9 @@ class ConfigPage extends StatelessWidget {
                       Text(
                         'Tono',
                         style: TextStyle(
-                          fontSize: MediaQuery.of(context).orientation ==
-                                  Orientation.portrait
-                              ? MediaQuery.of(context).size.width *
-                                  configProvider.factorSize!
-                              : MediaQuery.of(context).size.height *
-                                  configProvider.factorSize!,
+                          fontSize: orientation == Orientation.portrait
+                              ? mq.width * configProvider.factorSize!
+                              : mq.height * configProvider.factorSize!,
                           fontWeight: FontWeight.bold,
                           color: const Color(0xFF003A70),
                         ),
@@ -276,14 +251,12 @@ class ConfigPage extends StatelessWidget {
                         borderRadius: BorderRadius.circular(500),
                         child: Container(
                           alignment: Alignment.center,
-                          width: MediaQuery.of(context).orientation ==
-                                  Orientation.portrait
-                              ? MediaQuery.of(context).size.width * 0.1
-                              : MediaQuery.of(context).size.height * 0.1,
-                          height: MediaQuery.of(context).orientation ==
-                                  Orientation.portrait
-                              ? MediaQuery.of(context).size.width * 0.1
-                              : MediaQuery.of(context).size.height * 0.1,
+                          width: orientation == Orientation.portrait
+                              ? mq.width * 0.1
+                              : mq.height * 0.1,
+                          height: orientation == Orientation.portrait
+                              ? mq.width * 0.1
+                              : mq.height * 0.1,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(500),
                             color: ttsProvider.pitch > 0.05
@@ -293,28 +266,23 @@ class ConfigPage extends StatelessWidget {
                           child: Icon(
                             Icons.chevron_left,
                             color: Colors.white,
-                            size: MediaQuery.of(context).orientation ==
-                                    Orientation.portrait
-                                ? MediaQuery.of(context).size.width * 0.06
-                                : MediaQuery.of(context).size.height * 0.06,
+                            size: orientation == Orientation.portrait
+                                ? mq.width * 0.06
+                                : mq.height * 0.06,
                           ),
                         ),
                       ),
                       Container(
                         alignment: Alignment.center,
-                        width: MediaQuery.of(context).orientation ==
-                                Orientation.portrait
-                            ? MediaQuery.of(context).size.width * 0.3
-                            : MediaQuery.of(context).size.height * 0.3,
+                        width: orientation == Orientation.portrait
+                            ? mq.width * 0.3
+                            : mq.height * 0.3,
                         child: Text(
                           '${(ttsProvider.pitch * 100).round()}',
                           style: TextStyle(
-                            fontSize: MediaQuery.of(context).orientation ==
-                                    Orientation.portrait
-                                ? MediaQuery.of(context).size.width *
-                                    configProvider.factorSize!
-                                : MediaQuery.of(context).size.height *
-                                    configProvider.factorSize!,
+                            fontSize: orientation == Orientation.portrait
+                                ? mq.width * configProvider.factorSize!
+                                : mq.height * configProvider.factorSize!,
                             fontWeight: FontWeight.normal,
                             color: const Color(0xFF003A70),
                           ),
@@ -327,14 +295,12 @@ class ConfigPage extends StatelessWidget {
                         borderRadius: BorderRadius.circular(500),
                         child: Container(
                           alignment: Alignment.center,
-                          width: MediaQuery.of(context).orientation ==
-                                  Orientation.portrait
-                              ? MediaQuery.of(context).size.width * 0.1
-                              : MediaQuery.of(context).size.height * 0.1,
-                          height: MediaQuery.of(context).orientation ==
-                                  Orientation.portrait
-                              ? MediaQuery.of(context).size.width * 0.1
-                              : MediaQuery.of(context).size.height * 0.1,
+                          width: orientation == Orientation.portrait
+                              ? mq.width * 0.1
+                              : mq.height * 0.1,
+                          height: orientation == Orientation.portrait
+                              ? mq.width * 0.1
+                              : mq.height * 0.1,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(500),
                             color: ttsProvider.pitch < 1
@@ -344,10 +310,9 @@ class ConfigPage extends StatelessWidget {
                           child: Icon(
                             Icons.chevron_right,
                             color: Colors.white,
-                            size: MediaQuery.of(context).orientation ==
-                                    Orientation.portrait
-                                ? MediaQuery.of(context).size.width * 0.06
-                                : MediaQuery.of(context).size.height * 0.06,
+                            size: orientation == Orientation.portrait
+                                ? mq.width * 0.06
+                                : mq.height * 0.06,
                           ),
                         ),
                       ),
@@ -355,10 +320,9 @@ class ConfigPage extends StatelessWidget {
                   ),
                 ),
                 SizedBox(
-                  height:
-                      MediaQuery.of(context).orientation == Orientation.portrait
-                          ? MediaQuery.of(context).size.width * 0.04
-                          : MediaQuery.of(context).size.height * 0.04,
+                  height: orientation == Orientation.portrait
+                      ? mq.width * 0.04
+                      : mq.height * 0.04,
                 ),
                 Container(
                   alignment: Alignment.center,
@@ -369,23 +333,18 @@ class ConfigPage extends StatelessWidget {
                       borderRadius: BorderRadius.circular(16),
                       child: Container(
                         alignment: Alignment.center,
-                        width: MediaQuery.of(context).orientation ==
-                                Orientation.portrait
-                            ? MediaQuery.of(context).size.width * 0.6
-                            : MediaQuery.of(context).size.height * 0.6,
-                        height: MediaQuery.of(context).orientation ==
-                                Orientation.portrait
-                            ? MediaQuery.of(context).size.width * 0.2
-                            : MediaQuery.of(context).size.height * 0.2,
+                        width: orientation == Orientation.portrait
+                            ? mq.width * 0.6
+                            : mq.height * 0.6,
+                        height: orientation == Orientation.portrait
+                            ? mq.width * 0.2
+                            : mq.height * 0.2,
                         child: Text(
                           'Probar voz'.toUpperCase(),
                           style: TextStyle(
-                              fontSize: MediaQuery.of(context).orientation ==
-                                      Orientation.portrait
-                                  ? MediaQuery.of(context).size.width *
-                                      0.68 *
-                                      configProvider.factorSize!
-                                  : MediaQuery.of(context).size.height *
+                              fontSize: orientation == Orientation.portrait
+                                  ? mq.width * 0.68 * configProvider.factorSize!
+                                  : mq.height *
                                       0.68 *
                                       configProvider.factorSize!,
                               fontWeight: FontWeight.bold,
@@ -405,35 +364,30 @@ class ConfigPage extends StatelessWidget {
                       Text(
                         'Tamaño de texto',
                         style: TextStyle(
-                          fontSize: MediaQuery.of(context).orientation ==
-                                  Orientation.portrait
-                              ? MediaQuery.of(context).size.width *
-                                  configProvider.factorSize!
-                              : MediaQuery.of(context).size.height *
-                                  configProvider.factorSize!,
+                          fontSize: orientation == Orientation.portrait
+                              ? mq.width * configProvider.factorSize!
+                              : mq.height * configProvider.factorSize!,
                           fontWeight: FontWeight.bold,
                           color: const Color(0xFF003A70),
                         ),
                       ),
                       SizedBox(
-                        height: MediaQuery.of(context).orientation ==
-                                Orientation.portrait
-                            ? MediaQuery.of(context).size.width * 0.04
-                            : MediaQuery.of(context).size.height * 0.04,
+                        height: orientation == Orientation.portrait
+                            ? mq.width * 0.04
+                            : mq.height * 0.04,
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
                           Material(
                             borderRadius: BorderRadius.circular(16),
-                            color: configProvider.factorSize! == 0.05
+                            color: configProvider.factorText! == 'pequeño'
                                 ? Colors.blue
                                 : Colors.grey[400],
                             child: InkWell(
                               onTap: () {
-                                Responsive.isLargeScreen(context)
-                                    ? configProvider.setFactorSize(0.04)
-                                    : configProvider.setFactorSize(0.05);
+                                configProvider.setFactorSize(
+                                    mq.width, 'pequeño');
                               },
                               borderRadius: BorderRadius.circular(16),
                               child: Container(
@@ -443,34 +397,31 @@ class ConfigPage extends StatelessWidget {
                                   'Pequeño',
                                   style: TextStyle(
                                     color: Colors.white,
-                                    fontSize: MediaQuery.of(context)
-                                                .orientation ==
-                                            Orientation.portrait
-                                        ? MediaQuery.of(context).size.width *
-                                            0.04
-                                        : MediaQuery.of(context).size.height *
-                                            0.04,
+                                    fontSize:
+                                        MediaQuery.of(context).orientation ==
+                                                Orientation.portrait
+                                            ? mq.width * 0.04
+                                            : mq.height * 0.04,
                                   ),
                                 ),
                               ),
                             ),
                           ),
                           SizedBox(
-                            width: MediaQuery.of(context).orientation ==
-                                    Orientation.portrait
-                                ? MediaQuery.of(context).size.width * 0.02
-                                : MediaQuery.of(context).size.height * 0.02,
+                            width: orientation == Orientation.portrait
+                                ? mq.width * 0.02
+                                : mq.height * 0.02,
                           ),
                           Material(
                             borderRadius: BorderRadius.circular(16),
-                            color: configProvider.factorSize! == 0.06
-                                ? Colors.blue
-                                : Colors.grey[400],
+                            color:
+                                configProvider.factorText! == 'predeterminado'
+                                    ? Colors.blue
+                                    : Colors.grey[400],
                             child: InkWell(
                               onTap: () {
-                                Responsive.isLargeScreen(context)
-                                    ? configProvider.setFactorSize(0.046)
-                                    : configProvider.setFactorSize(0.06);
+                                configProvider.setFactorSize(
+                                    mq.width, 'predeterminado');
                               },
                               borderRadius: BorderRadius.circular(16),
                               child: Container(
@@ -480,34 +431,30 @@ class ConfigPage extends StatelessWidget {
                                   'Predeterminado',
                                   style: TextStyle(
                                     color: Colors.white,
-                                    fontSize: MediaQuery.of(context)
-                                                .orientation ==
-                                            Orientation.portrait
-                                        ? MediaQuery.of(context).size.width *
-                                            0.04
-                                        : MediaQuery.of(context).size.height *
-                                            0.04,
+                                    fontSize:
+                                        MediaQuery.of(context).orientation ==
+                                                Orientation.portrait
+                                            ? mq.width * 0.04
+                                            : mq.height * 0.04,
                                   ),
                                 ),
                               ),
                             ),
                           ),
                           SizedBox(
-                            width: MediaQuery.of(context).orientation ==
-                                    Orientation.portrait
-                                ? MediaQuery.of(context).size.width * 0.02
-                                : MediaQuery.of(context).size.height * 0.02,
+                            width: orientation == Orientation.portrait
+                                ? mq.width * 0.02
+                                : mq.height * 0.02,
                           ),
                           Material(
                             borderRadius: BorderRadius.circular(16),
-                            color: configProvider.factorSize! == 0.08
+                            color: configProvider.factorText! == 'grande'
                                 ? Colors.blue
                                 : Colors.grey[400],
                             child: InkWell(
                               onTap: () {
-                                Responsive.isLargeScreen(context)
-                                    ? configProvider.setFactorSize(0.05)
-                                    : configProvider.setFactorSize(0.07);
+                                configProvider.setFactorSize(
+                                    mq.width, 'grande');
                               },
                               borderRadius: BorderRadius.circular(16),
                               child: Container(
@@ -517,13 +464,11 @@ class ConfigPage extends StatelessWidget {
                                   'Grande',
                                   style: TextStyle(
                                     color: Colors.white,
-                                    fontSize: MediaQuery.of(context)
-                                                .orientation ==
-                                            Orientation.portrait
-                                        ? MediaQuery.of(context).size.width *
-                                            0.04
-                                        : MediaQuery.of(context).size.height *
-                                            0.04,
+                                    fontSize:
+                                        MediaQuery.of(context).orientation ==
+                                                Orientation.portrait
+                                            ? mq.width * 0.04
+                                            : mq.height * 0.04,
                                   ),
                                 ),
                               ),
@@ -535,10 +480,9 @@ class ConfigPage extends StatelessWidget {
                   ),
                 ),
                 SizedBox(
-                  height:
-                      MediaQuery.of(context).orientation == Orientation.portrait
-                          ? MediaQuery.of(context).size.width * 0.08
-                          : MediaQuery.of(context).size.height * 0.08,
+                  height: orientation == Orientation.portrait
+                      ? mq.width * 0.08
+                      : mq.height * 0.08,
                 ),
                 Container(
                   alignment: Alignment.center,
@@ -547,47 +491,41 @@ class ConfigPage extends StatelessWidget {
                       Text(
                         'Desarrollado por'.toUpperCase(),
                         style: TextStyle(
-                          fontSize: MediaQuery.of(context).orientation ==
-                                  Orientation.portrait
-                              ? MediaQuery.of(context).size.width * 0.03
-                              : MediaQuery.of(context).size.height * 0.03,
+                          fontSize: orientation == Orientation.portrait
+                              ? mq.width * 0.03
+                              : mq.height * 0.03,
                           color: const Color(0xFF003A70),
                         ),
                       ),
                       SizedBox(
-                        height: MediaQuery.of(context).orientation ==
-                                Orientation.portrait
-                            ? MediaQuery.of(context).size.width * 0.02
-                            : MediaQuery.of(context).size.height * 0.02,
+                        height: orientation == Orientation.portrait
+                            ? mq.width * 0.02
+                            : mq.height * 0.02,
                       ),
                       Text(
                         'Clínica de Tecnología Asistiva, FLENI',
                         style: TextStyle(
-                          fontSize: MediaQuery.of(context).orientation ==
-                                  Orientation.portrait
-                              ? MediaQuery.of(context).size.width * 0.04
-                              : MediaQuery.of(context).size.height * 0.04,
+                          fontSize: orientation == Orientation.portrait
+                              ? mq.width * 0.04
+                              : mq.height * 0.04,
                           color: const Color(0xFF003A70),
                         ),
                       ),
                       SizedBox(
-                        height: MediaQuery.of(context).orientation ==
-                                Orientation.portrait
-                            ? MediaQuery.of(context).size.width * 0.08
-                            : MediaQuery.of(context).size.height * 0.08,
+                        height: orientation == Orientation.portrait
+                            ? mq.width * 0.08
+                            : mq.height * 0.08,
                       ),
                       Image.asset(
                         'assets/images/fleni-logo.png',
-                        width: MediaQuery.of(context).orientation ==
-                                Orientation.portrait
-                            ? MediaQuery.of(context).size.width * 0.6
-                            : MediaQuery.of(context).size.height * 0.6,
+                        width: orientation == Orientation.portrait
+                            ? mq.width * 0.6
+                            : mq.height * 0.6,
                       ),
                       SizedBox(
-                        height: MediaQuery.of(context).orientation ==
-                                Orientation.portrait
-                            ? MediaQuery.of(context).size.width * 0.08
-                            : MediaQuery.of(context).size.height * 0.08,
+                        height: orientation == Orientation.portrait
+                            ? mq.width * 0.08
+                            : mq.height * 0.08,
                       ),
                     ],
                   ),
