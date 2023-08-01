@@ -13,6 +13,7 @@ Future<void> main() async {
   // orientacion vertical
   //await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   // statusbar transparente
+  
   SystemChrome.setSystemUIOverlayStyle(
       const SystemUiOverlayStyle(statusBarColor: Colors.transparent));
 

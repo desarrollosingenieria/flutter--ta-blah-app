@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:techabla/src/views/pages/configPage/config_page.dart';
 import 'package:techabla/src/views/pages/homePage/widgets/buttons_widget.dart';
 import 'package:techabla/src/views/pages/homePage/widgets/field_text.dart';
-import 'package:techabla/src/views/pages/utils/transitions.dart';
+import 'package:techabla/src/utils/transitions.dart';
 import 'package:techabla/src/provider/config_provider.dart';
 import 'package:techabla/src/provider/favorites_provider.dart';
 import 'package:techabla/src/provider/tts_provider.dart';

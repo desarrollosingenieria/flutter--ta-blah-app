@@ -5,7 +5,7 @@ import 'package:techabla/src/provider/config_provider.dart';
 import 'package:techabla/src/provider/tts_provider.dart';
 import 'package:techabla/src/utils/responsive.dart';
 import 'package:techabla/src/views/pages/favoritesPage/favorites_page.dart';
-import 'package:techabla/src/views/pages/utils/transitions.dart';
+import 'package:techabla/src/utils/transitions.dart';
 
 class FieldTextWidget extends StatefulWidget {
   const FieldTextWidget({super.key});
