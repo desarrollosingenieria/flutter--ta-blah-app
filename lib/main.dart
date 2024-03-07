@@ -1,15 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
-import 'package:techabla/src/data/local/local_db.dart';
-import 'package:techabla/src/data/local/user_preferences.dart';
-import 'package:techabla/src/app.dart';
-import 'package:techabla/src/provider/config_provider.dart';
-import 'package:techabla/src/provider/favorites_provider.dart';
-import 'package:techabla/src/provider/tts_provider.dart';
+import 'package:tablah/src/data/local/local_db.dart';
+import 'package:tablah/src/data/local/user_preferences.dart';
+import 'package:tablah/src/app.dart';
+import 'package:tablah/src/provider/config_provider.dart';
+import 'package:tablah/src/provider/favorites_provider.dart';
+import 'package:tablah/src/provider/tts_provider.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  // pantalla completa
+  SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
+  // bloqueo orientación para celulares
+  //if(getDeviceType() == 'phone'){   
+            //  SystemChrome.setPreferredOrientations([
+            //     DeviceOrientation. portraitUp,
+            //  ]);    
+  //      }   
   // orientacion vertical
   //await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   // statusbar transparente
@@ -36,7 +44,7 @@ Future<void> main() async {
           create: (BuildContext context) => ConfigProvider(),
         ),
       ],
-      child: const TecHabla(),
+      child: const TABlah(),
     ),
   );
 }

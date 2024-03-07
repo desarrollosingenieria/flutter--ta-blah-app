@@ -1,6 +1,6 @@
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:techabla/src/models/favorites_model.dart';
+import 'package:tablah/src/models/favorites_model.dart';
 
 class LocalData {
   var initialized = false;

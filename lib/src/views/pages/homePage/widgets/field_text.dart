@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
-import 'package:techabla/src/provider/config_provider.dart';
-import 'package:techabla/src/provider/tts_provider.dart';
-import 'package:techabla/src/utils/responsive.dart';
-import 'package:techabla/src/views/pages/favoritesPage/favorites_page.dart';
-import 'package:techabla/src/utils/transitions.dart';
+import 'package:tablah/src/data/local/user_preferences.dart';
+import 'package:tablah/src/provider/config_provider.dart';
+import 'package:tablah/src/provider/tts_provider.dart';
+import 'package:tablah/src/utils/transitions.dart';
+import 'package:tablah/src/views/pages/favoritesPage/favorites_page.dart';
 
 class FieldTextWidget extends StatefulWidget {
   const FieldTextWidget({super.key});
@@ -20,7 +20,8 @@ class _FieldTextWidgetState extends State<FieldTextWidget> {
   Widget build(BuildContext context) {
     final ttsProvider = Provider.of<TTSProvider>(context);
     final configProvider = Provider.of<ConfigProvider>(context);
-    return Responsive.isLargeScreen(context)
+    final UserPreferences prefs = UserPreferences();
+    return  MediaQuery.of(context).orientation != Orientation.portrait 
         ? Row(
             children: [
               Expanded(
@@ -73,10 +74,6 @@ class _FieldTextWidgetState extends State<FieldTextWidget> {
                   borderRadius: BorderRadius.circular(16),
                   child: Container(
                     padding: const EdgeInsets.all(20),
-                    height: MediaQuery.of(context).orientation ==
-                            Orientation.portrait
-                        ? MediaQuery.of(context).size.width * 0.06
-                        : MediaQuery.of(context).size.height * 0.16,
                     alignment: Alignment.center,
                     child: Row(
                       children: [
@@ -138,8 +135,22 @@ class _FieldTextWidgetState extends State<FieldTextWidget> {
                 ),
                 minLines: 1,
                 maxLines: 2,
-                decoration: const InputDecoration(
-                    border: OutlineInputBorder(), hintText: 'Escribe algo...'),
+                decoration: InputDecoration(
+        border: OutlineInputBorder(
+          borderRadius: const BorderRadius.all(Radius.circular(16.0)),
+          borderSide: BorderSide(color: prefs.highContrast ? Colors.white : Colors.black, width: 2),
+        ), 
+        enabledBorder: OutlineInputBorder(
+          borderRadius: const BorderRadius.all(Radius.circular(16.0)),
+          borderSide: BorderSide(color: prefs.highContrast ? Colors.white : Colors.black, width: 2),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: const BorderRadius.all(Radius.circular(16.0)),
+          borderSide: BorderSide(color: prefs.highContrast ? Colors.white : Colors.black, width: 2),
+        ), 
+        hintText: 'Escribe algo...',
+        hintStyle: TextStyle(color: prefs.highContrast ? Colors.white : Colors.black,)
+        ),
                 onChanged: (String newText) {
                   ttsProvider.setText(newText);
                 },
@@ -155,7 +166,7 @@ class _FieldTextWidgetState extends State<FieldTextWidget> {
                 children: [
                   Material(
                     borderRadius: BorderRadius.circular(16),
-                    color: Colors.orange,
+                    color: configProvider.highContrast! ? Colors.yellow : Colors.orange,
                     child: InkWell(
                       onTap: () {
                         HapticFeedback.lightImpact();
@@ -169,16 +180,13 @@ class _FieldTextWidgetState extends State<FieldTextWidget> {
                       borderRadius: BorderRadius.circular(16),
                       child: Container(
                         padding: const EdgeInsets.all(20),
-                        height: MediaQuery.of(context).orientation ==
-                                Orientation.portrait
-                            ? MediaQuery.of(context).size.width * 0.16
-                            : MediaQuery.of(context).size.height * 0.16,
+                        
                         alignment: Alignment.center,
                         child: Row(
                           children: [
-                            const Icon(
+                            Icon(
                               Icons.favorite,
-                              color: Colors.white,
+                              color: configProvider.highContrast! ? Colors.black :Colors.white,
                             ),
                             SizedBox(
                               width: MediaQuery.of(context).orientation ==
@@ -198,7 +206,7 @@ class _FieldTextWidgetState extends State<FieldTextWidget> {
                                         0.68 *
                                         configProvider.factorSize!,
                                 fontWeight: FontWeight.bold,
-                                color: Colors.white,
+                                color: configProvider.highContrast! ? Colors.black : Colors.white,
                               ),
                             ),
                           ],

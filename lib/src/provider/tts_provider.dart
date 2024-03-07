@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_tts/flutter_tts.dart';
-import 'package:techabla/src/data/local/user_preferences.dart';
+import 'package:tablah/src/data/local/user_preferences.dart';
 
 class TTSProvider with ChangeNotifier {
   final String _defaultLanguage = 'en-US';

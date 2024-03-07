@@ -1,12 +1,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.techabla.techabla">
+    package="com.fleni.tablah">
     <queries>  
   <intent>  
       <action android:name="android.intent.action.TTS_SERVICE" />  
   </intent>  
  </queries>  
    <application
-        android:label="TecHabla"
+        android:label="TA Blah"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

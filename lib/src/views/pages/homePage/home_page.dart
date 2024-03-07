@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:techabla/src/views/pages/configPage/config_page.dart';
-import 'package:techabla/src/views/pages/homePage/widgets/buttons_widget.dart';
-import 'package:techabla/src/views/pages/homePage/widgets/field_text.dart';
-import 'package:techabla/src/utils/transitions.dart';
-import 'package:techabla/src/provider/config_provider.dart';
-import 'package:techabla/src/provider/favorites_provider.dart';
-import 'package:techabla/src/provider/tts_provider.dart';
+import 'package:tablah/src/views/pages/configPage/config_page.dart';
+import 'package:tablah/src/views/pages/homePage/widgets/buttons_widget.dart';
+import 'package:tablah/src/views/pages/homePage/widgets/field_text.dart';
+import 'package:tablah/src/utils/transitions.dart';
+import 'package:tablah/src/provider/config_provider.dart';
+import 'package:tablah/src/provider/favorites_provider.dart';
+import 'package:tablah/src/provider/tts_provider.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -30,11 +30,14 @@ class HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final configProvider = Provider.of<ConfigProvider>(context);
     return Scaffold(
+      backgroundColor: configProvider.highContrast! ? Colors.black : Colors.white,
       resizeToAvoidBottomInset: false,
-      appBar: AppBar(
+      appBar: MediaQuery.of(context).orientation == Orientation.portrait 
+      ? AppBar(
         title: const Text(
-          'TecHabla',
+          'TA Blah',
           style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
         ),
         backgroundColor: const Color(0xFF003A70),
@@ -56,28 +59,22 @@ class HomePageState extends State<HomePage> {
             },
           ),
         ],
-      ),
-      body: NotificationListener<OverscrollIndicatorNotification>(
-        onNotification: (overScroll) {
-          overScroll.disallowIndicator();
-          return true;
-        },
-        child: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: Center(
-              child: Column(
-                children: <Widget>[
-                  const FieldTextWidget(),
-                  SizedBox(
-                    height: MediaQuery.of(context).orientation ==
-                            Orientation.portrait
-                        ? null
-                        : MediaQuery.of(context).size.height * 0.04,
-                  ),
-                  const ButtonsWidget(),
-                ],
-              ),
+      ) : const PreferredSize(preferredSize: Size.zero, child: SafeArea(child: SizedBox.shrink(),),),
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: Center(
+            child: Column(
+              children: <Widget>[
+                const FieldTextWidget(),
+                SizedBox(
+                  height: MediaQuery.of(context).orientation ==
+                          Orientation.portrait
+                      ? null
+                      : MediaQuery.of(context).size.height * 0.04,
+                ),
+                const Expanded(child: ButtonsWidget()),
+              ],
             ),
           ),
         ),

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:techabla/src/theme/color_app.dart';
+import 'package:tablah/src/theme/color_app.dart';
 
 class ThemeProvider extends ChangeNotifier {
   ThemeData? _selectedTheme;

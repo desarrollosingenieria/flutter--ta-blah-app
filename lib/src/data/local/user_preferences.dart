@@ -69,6 +69,25 @@ class UserPreferences {
     _prefs.setString('themeMode', mode);
   }
 
+  // GET y  SET highlightFont
+  bool get highlightFont {
+    return _prefs.getBool('highlightFont') ?? false;
+  }
+
+  set highlightFont(bool status) {
+    _prefs.setBool('highlightFont', status);
+  }
+
+  // GET y SET del modo de tema
+  bool get highContrast {
+    return _prefs.getBool('highContrast') ?? false;
+  }
+
+  set highContrast(bool mode) {
+    _prefs.setBool('highContrast', mode);
+  }
+
+
   Future<bool> cleanPrefs() async {
     return _prefs.clear();
   }

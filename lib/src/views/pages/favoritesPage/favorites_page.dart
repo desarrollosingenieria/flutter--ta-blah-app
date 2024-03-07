@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:techabla/src/provider/config_provider.dart';
-import 'package:techabla/src/provider/favorites_provider.dart';
-import 'package:techabla/src/provider/tts_provider.dart';
-import 'package:techabla/src/views/pages/favoritesPage/widgets/add_fav.dart';
+import 'package:tablah/src/provider/config_provider.dart';
+import 'package:tablah/src/provider/favorites_provider.dart';
+import 'package:tablah/src/provider/tts_provider.dart';
+import 'package:tablah/src/views/pages/favoritesPage/widgets/add_fav.dart';
 
 class FavoritesPage extends StatefulWidget {
   const FavoritesPage({super.key});
@@ -26,6 +26,7 @@ class _FavoritesPageState extends State<FavoritesPage> {
         return true;
       },
       child: Scaffold(
+        backgroundColor: configProvider.highContrast! ? Colors.black : Colors.white,
         appBar: AppBar(
           title: const Text(
             'Favoritos',
@@ -60,7 +61,7 @@ class _FavoritesPageState extends State<FavoritesPage> {
                             : MediaQuery.of(context).size.height *
                                 configProvider.factorSize!,
                         fontWeight: FontWeight.bold,
-                        color: const Color(0xFF003A70),
+                        color: configProvider.highContrast! ? Colors.white : const Color(0xFF003A70),
                       ),
                     ),
                   ),
@@ -75,7 +76,7 @@ class _FavoritesPageState extends State<FavoritesPage> {
                         key: UniqueKey(),
                         background: Container(
                           alignment: Alignment.centerRight,
-                          color: Colors.red,
+                          color: configProvider.highContrast! ? Colors.purple : Colors.red,
                           padding: const EdgeInsets.only(right: 30),
                           child: Icon(
                             Icons.delete,
@@ -118,7 +119,7 @@ class _FavoritesPageState extends State<FavoritesPage> {
                                           : MediaQuery.of(context).size.height *
                                               0.8 *
                                               configProvider.factorSize!,
-                                  color: const Color(0xFF003A70),
+                                  color: configProvider.highContrast! ? Colors.white : const Color(0xFF003A70),
                                 ),
                               ),
                             ),

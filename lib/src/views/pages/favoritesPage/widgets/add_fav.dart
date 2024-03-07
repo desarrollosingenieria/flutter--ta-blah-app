@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
-import 'package:techabla/src/provider/config_provider.dart';
-import 'package:techabla/src/provider/favorites_provider.dart';
-import 'package:techabla/src/utils/responsive.dart';
+import 'package:tablah/src/provider/config_provider.dart';
+import 'package:tablah/src/provider/favorites_provider.dart';
+import 'package:tablah/src/utils/responsive.dart';
 
 class AddFavWidget extends StatelessWidget {
   const AddFavWidget({super.key});
@@ -29,13 +29,45 @@ class AddFavWidget extends StatelessWidget {
                             1.2 *
                             configProvider.factorSize!,
                     fontWeight: FontWeight.bold,
-                    color: Colors.black,
+                    color: configProvider.highContrast! ? Colors.white : Colors.black,
                   ),
                   minLines: 1,
                   maxLines: 1,
-                  decoration: const InputDecoration(
-                      border: OutlineInputBorder(),
-                      hintText: 'Agregar favoritos...'),
+                  decoration: InputDecoration(
+                      border: OutlineInputBorder(
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(16.0)),
+                        borderSide: BorderSide(
+                            color: configProvider.highContrast!
+                                ? Colors.white
+                                : Colors.black,
+                            width: 2),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(16.0)),
+                        borderSide: BorderSide(
+                            color: configProvider.highContrast!
+                                ? Colors.white
+                                : Colors.black,
+                            width: 2),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(16.0)),
+                        borderSide: BorderSide(
+                            color: configProvider.highContrast!
+                                ? Colors.white
+                                : Colors.black,
+                            width: 2),
+                      ),
+                      
+                      hintText: 'Agregar favoritos...',
+                      hintStyle: TextStyle(
+                        color: configProvider.highContrast!
+                            ? Colors.white
+                            : Colors.black,
+                      )),
                 ),
               ),
               SizedBox(
@@ -46,7 +78,7 @@ class AddFavWidget extends StatelessWidget {
               ),
               Material(
                 borderRadius: BorderRadius.circular(16),
-                color: Colors.blue,
+                color: configProvider.highContrast! ? Colors.white : Colors.blue,
                 child: InkWell(
                   borderRadius: BorderRadius.circular(16),
                   onTap: () {
@@ -65,9 +97,9 @@ class AddFavWidget extends StatelessWidget {
                     alignment: Alignment.center,
                     child: Row(
                       children: [
-                        const Icon(
+                        Icon(
                           Icons.add,
-                          color: Colors.white,
+                          color: configProvider.highContrast! ? Colors.black : Colors.white,
                         ),
                         SizedBox(
                           width: MediaQuery.of(context).orientation ==
@@ -87,7 +119,7 @@ class AddFavWidget extends StatelessWidget {
                                     0.68 *
                                     configProvider.factorSize!,
                             fontWeight: FontWeight.bold,
-                            color: Colors.white,
+                            color: configProvider.highContrast! ? Colors.black : Colors.white,
                           ),
                         ),
                       ],
@@ -115,9 +147,40 @@ class AddFavWidget extends StatelessWidget {
                 ),
                 minLines: 1,
                 maxLines: 2,
-                decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
-                    hintText: 'Agregar favoritos...'),
+                decoration: InputDecoration(
+                    border: OutlineInputBorder(
+                      borderRadius:
+                          const BorderRadius.all(Radius.circular(16.0)),
+                      borderSide: BorderSide(
+                          color: configProvider.highContrast!
+                              ? Colors.white
+                              : Colors.black,
+                          width: 2),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius:
+                          const BorderRadius.all(Radius.circular(16.0)),
+                      borderSide: BorderSide(
+                          color: configProvider.highContrast!
+                              ? Colors.white
+                              : Colors.black,
+                          width: 2),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius:
+                          const BorderRadius.all(Radius.circular(16.0)),
+                      borderSide: BorderSide(
+                          color: configProvider.highContrast!
+                              ? Colors.white
+                              : Colors.black,
+                          width: 2),
+                    ),
+                    hintText: 'Agregar favoritos...',
+                    hintStyle: TextStyle(
+                      color: configProvider.highContrast!
+                          ? Colors.white
+                          : Colors.black,
+                    )),
               ),
               SizedBox(
                 height:
@@ -130,7 +193,9 @@ class AddFavWidget extends StatelessWidget {
                 children: [
                   Material(
                     borderRadius: BorderRadius.circular(16),
-                    color: Colors.blue,
+                    color: configProvider.highContrast!
+                        ? Colors.white
+                        : Colors.blue,
                     child: InkWell(
                       borderRadius: BorderRadius.circular(16),
                       onTap: () {
@@ -151,7 +216,9 @@ class AddFavWidget extends StatelessWidget {
                           children: [
                             Icon(
                               Icons.add,
-                              color: Colors.white,
+                              color: configProvider.highContrast!
+                                  ? Colors.black
+                                  : Colors.white,
                               size: MediaQuery.of(context).orientation ==
                                       Orientation.portrait
                                   ? MediaQuery.of(context).size.width * 0.06
@@ -175,7 +242,9 @@ class AddFavWidget extends StatelessWidget {
                                         0.68 *
                                         configProvider.factorSize!,
                                 fontWeight: FontWeight.bold,
-                                color: Colors.white,
+                                color: configProvider.highContrast!
+                                    ? Colors.black
+                                    : Colors.white,
                               ),
                             ),
                           ],

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:techabla/src/data/local/user_preferences.dart';
+import 'package:tablah/src/data/local/user_preferences.dart';
 
 const int largeScreenSize = 1000;
 const int mediumScreenSize = 680;
@@ -10,14 +10,17 @@ class ConfigProvider with ChangeNotifier {
   final prefs = UserPreferences();
   double? _factorSize;
   String? _factorText;
+  bool? _highlightFont;
+  bool? _highContrast;
 
   void initConfig() {
     _factorSize = prefs.factorSize;
     _factorText = prefs.factorText;
+    _highContrast = prefs.highContrast;
   }
 
   void setFactorSize(double size, String factorText) {
-    print(size);
+    
     if (factorText == 'grande') {
       prefs.factorText = 'grande';
       _factorText = 'grande';
@@ -38,6 +41,20 @@ class ConfigProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  void setHighlightFont(bool status) {
+    _highlightFont = status;
+    prefs.highlightFont = status;
+    notifyListeners();
+  }
+
+  void setHighContrast(bool status) {
+    _highContrast = status;
+    prefs.highContrast = status;
+    notifyListeners();
+  }
+
   double? get factorSize => _factorSize;
   String? get factorText => _factorText;
+  bool? get highlightFont => _highlightFont ?? false;
+  bool? get highContrast => _highContrast ?? false;
 }

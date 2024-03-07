@@ -1,4 +1,4 @@
-package com.fleni.techabla.techabla
+package com.fleni.tablah
 
 import io.flutter.embedding.android.FlutterActivity
 

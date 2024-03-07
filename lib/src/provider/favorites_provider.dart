@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:hive/hive.dart';
-import 'package:techabla/src/data/local/local_db.dart';
+import 'package:tablah/src/data/local/local_db.dart';
 
 class FavoritesProvider with ChangeNotifier {
   String? _favorite;
