@@ -29,7 +29,9 @@ class AddFavWidget extends StatelessWidget {
                             1.2 *
                             configProvider.factorSize!,
                     fontWeight: FontWeight.bold,
-                    color: configProvider.highContrast! ? Colors.white : Colors.black,
+                    color: configProvider.highContrast!
+                        ? Colors.white
+                        : Colors.black,
                   ),
                   minLines: 1,
                   maxLines: 1,
@@ -61,7 +63,6 @@ class AddFavWidget extends StatelessWidget {
                                 : Colors.black,
                             width: 2),
                       ),
-                      
                       hintText: 'Agregar favoritos...',
                       hintStyle: TextStyle(
                         color: configProvider.highContrast!
@@ -78,7 +79,8 @@ class AddFavWidget extends StatelessWidget {
               ),
               Material(
                 borderRadius: BorderRadius.circular(16),
-                color: configProvider.highContrast! ? Colors.white : Colors.blue,
+                color:
+                    configProvider.highContrast! ? Colors.white : Colors.blue,
                 child: InkWell(
                   borderRadius: BorderRadius.circular(16),
                   onTap: () {
@@ -99,7 +101,9 @@ class AddFavWidget extends StatelessWidget {
                       children: [
                         Icon(
                           Icons.add,
-                          color: configProvider.highContrast! ? Colors.black : Colors.white,
+                          color: configProvider.highContrast!
+                              ? Colors.black
+                              : Colors.white,
                         ),
                         SizedBox(
                           width: MediaQuery.of(context).orientation ==
@@ -119,7 +123,9 @@ class AddFavWidget extends StatelessWidget {
                                     0.68 *
                                     configProvider.factorSize!,
                             fontWeight: FontWeight.bold,
-                            color: configProvider.highContrast! ? Colors.black : Colors.white,
+                            color: configProvider.highContrast!
+                                ? Colors.black
+                                : Colors.white,
                           ),
                         ),
                       ],
@@ -143,7 +149,9 @@ class AddFavWidget extends StatelessWidget {
                               1.2 *
                               configProvider.factorSize!,
                   fontWeight: FontWeight.bold,
-                  color: Colors.black,
+                  color: configProvider.highContrast!
+                      ? Colors.white
+                      : Colors.black,
                 ),
                 minLines: 1,
                 maxLines: 2,

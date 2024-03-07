@@ -21,7 +21,7 @@ class _FieldTextWidgetState extends State<FieldTextWidget> {
     final ttsProvider = Provider.of<TTSProvider>(context);
     final configProvider = Provider.of<ConfigProvider>(context);
     final UserPreferences prefs = UserPreferences();
-    return  MediaQuery.of(context).orientation != Orientation.portrait 
+    return MediaQuery.of(context).orientation != Orientation.portrait
         ? Row(
             children: [
               Expanded(
@@ -41,7 +41,9 @@ class _FieldTextWidgetState extends State<FieldTextWidget> {
                             1.4 *
                             configProvider.factorSize!,
                     fontWeight: FontWeight.bold,
-                    color: Colors.black,
+                    color: configProvider.highContrast!
+                        ? Colors.white
+                        : Colors.black,
                   ),
                   maxLines: 1,
                   decoration: const InputDecoration(
@@ -131,26 +133,41 @@ class _FieldTextWidgetState extends State<FieldTextWidget> {
                               1.4 *
                               configProvider.factorSize!,
                   fontWeight: FontWeight.bold,
-                  color: Colors.black,
+                  color: configProvider.highContrast!
+                      ? Colors.white
+                      : Colors.black,
                 ),
                 minLines: 1,
                 maxLines: 2,
                 decoration: InputDecoration(
-        border: OutlineInputBorder(
-          borderRadius: const BorderRadius.all(Radius.circular(16.0)),
-          borderSide: BorderSide(color: prefs.highContrast ? Colors.white : Colors.black, width: 2),
-        ), 
-        enabledBorder: OutlineInputBorder(
-          borderRadius: const BorderRadius.all(Radius.circular(16.0)),
-          borderSide: BorderSide(color: prefs.highContrast ? Colors.white : Colors.black, width: 2),
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderRadius: const BorderRadius.all(Radius.circular(16.0)),
-          borderSide: BorderSide(color: prefs.highContrast ? Colors.white : Colors.black, width: 2),
-        ), 
-        hintText: 'Escribe algo...',
-        hintStyle: TextStyle(color: prefs.highContrast ? Colors.white : Colors.black,)
-        ),
+                    border: OutlineInputBorder(
+                      borderRadius:
+                          const BorderRadius.all(Radius.circular(16.0)),
+                      borderSide: BorderSide(
+                          color:
+                              prefs.highContrast ? Colors.white : Colors.black,
+                          width: 2),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius:
+                          const BorderRadius.all(Radius.circular(16.0)),
+                      borderSide: BorderSide(
+                          color:
+                              prefs.highContrast ? Colors.white : Colors.black,
+                          width: 2),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius:
+                          const BorderRadius.all(Radius.circular(16.0)),
+                      borderSide: BorderSide(
+                          color:
+                              prefs.highContrast ? Colors.white : Colors.black,
+                          width: 2),
+                    ),
+                    hintText: 'Escribe algo...',
+                    hintStyle: TextStyle(
+                      color: prefs.highContrast ? Colors.white : Colors.black,
+                    )),
                 onChanged: (String newText) {
                   ttsProvider.setText(newText);
                 },
@@ -166,7 +183,9 @@ class _FieldTextWidgetState extends State<FieldTextWidget> {
                 children: [
                   Material(
                     borderRadius: BorderRadius.circular(16),
-                    color: configProvider.highContrast! ? Colors.yellow : Colors.orange,
+                    color: configProvider.highContrast!
+                        ? Colors.yellow
+                        : Colors.orange,
                     child: InkWell(
                       onTap: () {
                         HapticFeedback.lightImpact();
@@ -180,13 +199,14 @@ class _FieldTextWidgetState extends State<FieldTextWidget> {
                       borderRadius: BorderRadius.circular(16),
                       child: Container(
                         padding: const EdgeInsets.all(20),
-                        
                         alignment: Alignment.center,
                         child: Row(
                           children: [
                             Icon(
                               Icons.favorite,
-                              color: configProvider.highContrast! ? Colors.black :Colors.white,
+                              color: configProvider.highContrast!
+                                  ? Colors.black
+                                  : Colors.white,
                             ),
                             SizedBox(
                               width: MediaQuery.of(context).orientation ==
@@ -206,7 +226,9 @@ class _FieldTextWidgetState extends State<FieldTextWidget> {
                                         0.68 *
                                         configProvider.factorSize!,
                                 fontWeight: FontWeight.bold,
-                                color: configProvider.highContrast! ? Colors.black : Colors.white,
+                                color: configProvider.highContrast!
+                                    ? Colors.black
+                                    : Colors.white,
                               ),
                             ),
                           ],
