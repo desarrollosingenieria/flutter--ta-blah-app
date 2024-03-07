@@ -1,11 +1,15 @@
-import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:hive/hive.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:tablah/src/data/local/local_db.dart';
+import 'package:tablah/src/models/favorites_model.dart';
 
-class FavoritesProvider with ChangeNotifier {
-  String? _favorite;
+part 'favorites_provider.g.dart';
+
+@Riverpod(keepAlive: true)
+class AppFavorites extends _$AppFavorites {
   final LocalData _localDB = LocalData();
+  @override
+  List<Favorite> build() => [];
 
   Future<bool> openFavoritesBox() async {
     bool result = false;
@@ -28,6 +32,4 @@ class FavoritesProvider with ChangeNotifier {
   void deleteFavorite(int index) {
     _localDB.deleteFavorite(index);
   }
-
-  String? get favorite => _favorite;
 }

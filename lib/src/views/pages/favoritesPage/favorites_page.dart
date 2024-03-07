@@ -1,32 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:tablah/src/provider/config_provider.dart';
 import 'package:tablah/src/provider/favorites_provider.dart';
 import 'package:tablah/src/provider/tts_provider.dart';
 import 'package:tablah/src/views/pages/favoritesPage/widgets/add_fav.dart';
 
-class FavoritesPage extends StatefulWidget {
+class FavoritesPage extends ConsumerWidget {
   const FavoritesPage({super.key});
 
   @override
-  State<FavoritesPage> createState() => _FavoritesPageState();
-}
-
-class _FavoritesPageState extends State<FavoritesPage> {
-  @override
-  Widget build(BuildContext context) {
-    final favProvider = Provider.of<FavoritesProvider>(context);
-    final ttsProvider = Provider.of<TTSProvider>(context);
-    final configProvider = Provider.of<ConfigProvider>(context);
+  Widget build(BuildContext context, WidgetRef ref) {
+    final appConfig = ref.watch(configProvider);
     return NotificationListener<OverscrollIndicatorNotification>(
       onNotification: (overScroll) {
         overScroll.disallowIndicator();
         return true;
       },
       child: Scaffold(
-        backgroundColor: configProvider.highContrast! ? Colors.black : Colors.white,
+        backgroundColor: appConfig.highContrast ? Colors.black : Colors.white,
         appBar: AppBar(
           title: const Text(
             'Favoritos',
@@ -38,7 +31,10 @@ class _FavoritesPageState extends State<FavoritesPage> {
           elevation: 0,
         ),
         body: ValueListenableBuilder(
-          valueListenable: favProvider.getFavorites().listenable(),
+          valueListenable: ref
+              .read(appFavoritesProvider.notifier)
+              .getFavorites()
+              .listenable(),
           builder: ((context, box, _) {
             return CustomScrollView(
               slivers: [
@@ -57,11 +53,13 @@ class _FavoritesPageState extends State<FavoritesPage> {
                         fontSize: MediaQuery.of(context).orientation ==
                                 Orientation.portrait
                             ? MediaQuery.of(context).size.width *
-                                configProvider.factorSize!
+                                appConfig.factorSize
                             : MediaQuery.of(context).size.height *
-                                configProvider.factorSize!,
+                                appConfig.factorSize,
                         fontWeight: FontWeight.bold,
-                        color: configProvider.highContrast! ? Colors.white : const Color(0xFF003A70),
+                        color: appConfig.highContrast
+                            ? Colors.white
+                            : const Color(0xFF003A70),
                       ),
                     ),
                   ),
@@ -76,7 +74,9 @@ class _FavoritesPageState extends State<FavoritesPage> {
                         key: UniqueKey(),
                         background: Container(
                           alignment: Alignment.centerRight,
-                          color: configProvider.highContrast! ? Colors.purple : Colors.red,
+                          color: appConfig.highContrast
+                              ? Colors.purple
+                              : Colors.red,
                           padding: const EdgeInsets.only(right: 30),
                           child: Icon(
                             Icons.delete,
@@ -89,13 +89,17 @@ class _FavoritesPageState extends State<FavoritesPage> {
                         ),
                         onDismissed: (direction) {
                           if (direction == DismissDirection.endToStart) {
-                            favProvider.deleteFavorite(index);
+                            ref
+                                .read(appFavoritesProvider.notifier)
+                                .deleteFavorite(index);
                           }
                         },
                         child: InkWell(
                           onTap: () {
                             HapticFeedback.lightImpact();
-                            ttsProvider.speak(text: box.getAt(index).text);
+                            ref
+                                .read(appTTSProvider.notifier)
+                                .speak(box.getAt(index).text);
                           },
                           child: ListTile(
                             trailing: Icon(
@@ -115,11 +119,13 @@ class _FavoritesPageState extends State<FavoritesPage> {
                                               Orientation.portrait
                                           ? MediaQuery.of(context).size.width *
                                               0.8 *
-                                              configProvider.factorSize!
+                                              appConfig.factorSize
                                           : MediaQuery.of(context).size.height *
                                               0.8 *
-                                              configProvider.factorSize!,
-                                  color: configProvider.highContrast! ? Colors.white : const Color(0xFF003A70),
+                                              appConfig.factorSize,
+                                  color: appConfig.highContrast
+                                      ? Colors.white
+                                      : const Color(0xFF003A70),
                                 ),
                               ),
                             ),

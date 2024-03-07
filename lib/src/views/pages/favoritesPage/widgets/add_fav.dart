@@ -1,18 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tablah/src/provider/config_provider.dart';
 import 'package:tablah/src/provider/favorites_provider.dart';
 import 'package:tablah/src/utils/responsive.dart';
 
-class AddFavWidget extends StatelessWidget {
+class AddFavWidget extends ConsumerWidget {
   const AddFavWidget({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final TextEditingController controller = TextEditingController();
-    final configProvider = Provider.of<ConfigProvider>(context);
-    final favProvider = Provider.of<FavoritesProvider>(context);
+    final appConfig = ref.watch(configProvider);
     return Responsive.isLargeScreen(context)
         ? Row(
             children: [
@@ -24,14 +23,12 @@ class AddFavWidget extends StatelessWidget {
                             Orientation.portrait
                         ? MediaQuery.of(context).size.width *
                             1.2 *
-                            configProvider.factorSize!
+                            appConfig.factorSize
                         : MediaQuery.of(context).size.height *
                             1.2 *
-                            configProvider.factorSize!,
+                            appConfig.factorSize,
                     fontWeight: FontWeight.bold,
-                    color: configProvider.highContrast!
-                        ? Colors.white
-                        : Colors.black,
+                    color: appConfig.highContrast ? Colors.white : Colors.black,
                   ),
                   minLines: 1,
                   maxLines: 1,
@@ -40,7 +37,7 @@ class AddFavWidget extends StatelessWidget {
                         borderRadius:
                             const BorderRadius.all(Radius.circular(16.0)),
                         borderSide: BorderSide(
-                            color: configProvider.highContrast!
+                            color: appConfig.highContrast
                                 ? Colors.white
                                 : Colors.black,
                             width: 2),
@@ -49,7 +46,7 @@ class AddFavWidget extends StatelessWidget {
                         borderRadius:
                             const BorderRadius.all(Radius.circular(16.0)),
                         borderSide: BorderSide(
-                            color: configProvider.highContrast!
+                            color: appConfig.highContrast
                                 ? Colors.white
                                 : Colors.black,
                             width: 2),
@@ -58,14 +55,14 @@ class AddFavWidget extends StatelessWidget {
                         borderRadius:
                             const BorderRadius.all(Radius.circular(16.0)),
                         borderSide: BorderSide(
-                            color: configProvider.highContrast!
+                            color: appConfig.highContrast
                                 ? Colors.white
                                 : Colors.black,
                             width: 2),
                       ),
                       hintText: 'Agregar favoritos...',
                       hintStyle: TextStyle(
-                        color: configProvider.highContrast!
+                        color: appConfig.highContrast
                             ? Colors.white
                             : Colors.black,
                       )),
@@ -79,14 +76,15 @@ class AddFavWidget extends StatelessWidget {
               ),
               Material(
                 borderRadius: BorderRadius.circular(16),
-                color:
-                    configProvider.highContrast! ? Colors.white : Colors.blue,
+                color: appConfig.highContrast ? Colors.white : Colors.blue,
                 child: InkWell(
                   borderRadius: BorderRadius.circular(16),
                   onTap: () {
                     if (controller.text.isNotEmpty) {
                       HapticFeedback.lightImpact();
-                      favProvider.setFavorite(controller.text);
+                      ref
+                          .read(appFavoritesProvider.notifier)
+                          .setFavorite(controller.text);
                       controller.clear();
                       final FocusScopeNode focus = FocusScope.of(context);
                       if (!focus.hasPrimaryFocus && focus.hasFocus) {
@@ -101,7 +99,7 @@ class AddFavWidget extends StatelessWidget {
                       children: [
                         Icon(
                           Icons.add,
-                          color: configProvider.highContrast!
+                          color: appConfig.highContrast
                               ? Colors.black
                               : Colors.white,
                         ),
@@ -118,12 +116,12 @@ class AddFavWidget extends StatelessWidget {
                                     Orientation.portrait
                                 ? MediaQuery.of(context).size.width *
                                     0.68 *
-                                    configProvider.factorSize!
+                                    appConfig.factorSize
                                 : MediaQuery.of(context).size.height *
                                     0.68 *
-                                    configProvider.factorSize!,
+                                    appConfig.factorSize,
                             fontWeight: FontWeight.bold,
-                            color: configProvider.highContrast!
+                            color: appConfig.highContrast
                                 ? Colors.black
                                 : Colors.white,
                           ),
@@ -144,14 +142,12 @@ class AddFavWidget extends StatelessWidget {
                       MediaQuery.of(context).orientation == Orientation.portrait
                           ? MediaQuery.of(context).size.width *
                               1.2 *
-                              configProvider.factorSize!
+                              appConfig.factorSize
                           : MediaQuery.of(context).size.height *
                               1.2 *
-                              configProvider.factorSize!,
+                              appConfig.factorSize,
                   fontWeight: FontWeight.bold,
-                  color: configProvider.highContrast!
-                      ? Colors.white
-                      : Colors.black,
+                  color: appConfig.highContrast ? Colors.white : Colors.black,
                 ),
                 minLines: 1,
                 maxLines: 2,
@@ -160,7 +156,7 @@ class AddFavWidget extends StatelessWidget {
                       borderRadius:
                           const BorderRadius.all(Radius.circular(16.0)),
                       borderSide: BorderSide(
-                          color: configProvider.highContrast!
+                          color: appConfig.highContrast
                               ? Colors.white
                               : Colors.black,
                           width: 2),
@@ -169,7 +165,7 @@ class AddFavWidget extends StatelessWidget {
                       borderRadius:
                           const BorderRadius.all(Radius.circular(16.0)),
                       borderSide: BorderSide(
-                          color: configProvider.highContrast!
+                          color: appConfig.highContrast
                               ? Colors.white
                               : Colors.black,
                           width: 2),
@@ -178,16 +174,15 @@ class AddFavWidget extends StatelessWidget {
                       borderRadius:
                           const BorderRadius.all(Radius.circular(16.0)),
                       borderSide: BorderSide(
-                          color: configProvider.highContrast!
+                          color: appConfig.highContrast
                               ? Colors.white
                               : Colors.black,
                           width: 2),
                     ),
                     hintText: 'Agregar favoritos...',
                     hintStyle: TextStyle(
-                      color: configProvider.highContrast!
-                          ? Colors.white
-                          : Colors.black,
+                      color:
+                          appConfig.highContrast ? Colors.white : Colors.black,
                     )),
               ),
               SizedBox(
@@ -201,15 +196,15 @@ class AddFavWidget extends StatelessWidget {
                 children: [
                   Material(
                     borderRadius: BorderRadius.circular(16),
-                    color: configProvider.highContrast!
-                        ? Colors.white
-                        : Colors.blue,
+                    color: appConfig.highContrast ? Colors.white : Colors.blue,
                     child: InkWell(
                       borderRadius: BorderRadius.circular(16),
                       onTap: () {
                         if (controller.text.isNotEmpty) {
                           HapticFeedback.lightImpact();
-                          favProvider.setFavorite(controller.text);
+                          ref
+                              .read(appFavoritesProvider.notifier)
+                              .setFavorite(controller.text);
                           controller.clear();
                           final FocusScopeNode focus = FocusScope.of(context);
                           if (!focus.hasPrimaryFocus && focus.hasFocus) {
@@ -224,7 +219,7 @@ class AddFavWidget extends StatelessWidget {
                           children: [
                             Icon(
                               Icons.add,
-                              color: configProvider.highContrast!
+                              color: appConfig.highContrast
                                   ? Colors.black
                                   : Colors.white,
                               size: MediaQuery.of(context).orientation ==
@@ -245,12 +240,12 @@ class AddFavWidget extends StatelessWidget {
                                         Orientation.portrait
                                     ? MediaQuery.of(context).size.width *
                                         0.68 *
-                                        configProvider.factorSize!
+                                        appConfig.factorSize
                                     : MediaQuery.of(context).size.height *
                                         0.68 *
-                                        configProvider.factorSize!,
+                                        appConfig.factorSize,
                                 fontWeight: FontWeight.bold,
-                                color: configProvider.highContrast!
+                                color: appConfig.highContrast
                                     ? Colors.black
                                     : Colors.white,
                               ),

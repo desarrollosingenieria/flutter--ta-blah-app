@@ -1,25 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tablah/src/data/local/user_preferences.dart';
 import 'package:tablah/src/provider/config_provider.dart';
-import 'package:tablah/src/provider/tts_provider.dart';
 import 'package:tablah/src/utils/transitions.dart';
 import 'package:tablah/src/views/pages/favoritesPage/favorites_page.dart';
 
-class FieldTextWidget extends StatefulWidget {
+class FieldTextWidget extends ConsumerStatefulWidget {
   const FieldTextWidget({super.key});
-
   @override
-  State<FieldTextWidget> createState() => _FieldTextWidgetState();
+  FieldTextWidgetState createState() => FieldTextWidgetState();
 }
 
-class _FieldTextWidgetState extends State<FieldTextWidget> {
+class FieldTextWidgetState extends ConsumerState<FieldTextWidget> {
   final TextEditingController textEditingController = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    final ttsProvider = Provider.of<TTSProvider>(context);
-    final configProvider = Provider.of<ConfigProvider>(context);
+    final appConfig = ref.watch(configProvider);
+
     final UserPreferences prefs = UserPreferences();
     return MediaQuery.of(context).orientation != Orientation.portrait
         ? Row(
@@ -28,29 +26,60 @@ class _FieldTextWidgetState extends State<FieldTextWidget> {
                 child: TextField(
                   onTap: () {
                     textEditingController.clear();
-                    ttsProvider.setText('');
+                    ref.read(configProvider.notifier).setText('');
                   },
                   controller: textEditingController,
                   style: TextStyle(
                     fontSize: MediaQuery.of(context).orientation ==
                             Orientation.portrait
                         ? MediaQuery.of(context).size.width *
-                            1.4 *
-                            configProvider.factorSize!
+                            1.2 *
+                            appConfig.factorSize
                         : MediaQuery.of(context).size.height *
-                            1.4 *
-                            configProvider.factorSize!,
+                            1.2 *
+                            appConfig.factorSize,
                     fontWeight: FontWeight.bold,
-                    color: configProvider.highContrast!
-                        ? Colors.white
-                        : Colors.black,
+                    color: appConfig.highContrast ? Colors.white : Colors.black,
                   ),
+                  minLines: 1,
                   maxLines: 1,
-                  decoration: const InputDecoration(
-                      border: OutlineInputBorder(),
-                      hintText: 'Escribe algo...'),
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(
+                      borderRadius:
+                          const BorderRadius.all(Radius.circular(16.0)),
+                      borderSide: BorderSide(
+                          color: appConfig.highContrast
+                              ? Colors.white
+                              : Colors.black,
+                          width: 2),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius:
+                          const BorderRadius.all(Radius.circular(16.0)),
+                      borderSide: BorderSide(
+                          color: appConfig.highContrast
+                              ? Colors.white
+                              : Colors.black,
+                          width: 2),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius:
+                          const BorderRadius.all(Radius.circular(16.0)),
+                      borderSide: BorderSide(
+                          color: appConfig.highContrast
+                              ? Colors.white
+                              : Colors.black,
+                          width: 2),
+                    ),
+                    hintText: 'Agregar favoritos...',
+                    hintStyle: TextStyle(
+                      color:
+                          appConfig.highContrast ? Colors.white : Colors.black,
+                    ),
+                  ),
                   onChanged: (String newText) {
-                    ttsProvider.setText(newText);
+                    print(newText);
+                    ref.read(configProvider.notifier).setText(newText);
                   },
                 ),
               ),
@@ -100,10 +129,10 @@ class _FieldTextWidgetState extends State<FieldTextWidget> {
                                     Orientation.portrait
                                 ? MediaQuery.of(context).size.width *
                                     0.68 *
-                                    configProvider.factorSize!
+                                    appConfig.factorSize
                                 : MediaQuery.of(context).size.height *
                                     0.68 *
-                                    configProvider.factorSize!,
+                                    appConfig.factorSize,
                             fontWeight: FontWeight.bold,
                             color: Colors.white,
                           ),
@@ -120,7 +149,7 @@ class _FieldTextWidgetState extends State<FieldTextWidget> {
               TextField(
                 onTap: () {
                   textEditingController.clear();
-                  ttsProvider.setText('');
+                  ref.read(configProvider.notifier).setText('');
                 },
                 controller: textEditingController,
                 style: TextStyle(
@@ -128,14 +157,12 @@ class _FieldTextWidgetState extends State<FieldTextWidget> {
                       MediaQuery.of(context).orientation == Orientation.portrait
                           ? MediaQuery.of(context).size.width *
                               1.4 *
-                              configProvider.factorSize!
+                              appConfig.factorSize
                           : MediaQuery.of(context).size.height *
                               1.4 *
-                              configProvider.factorSize!,
+                              appConfig.factorSize,
                   fontWeight: FontWeight.bold,
-                  color: configProvider.highContrast!
-                      ? Colors.white
-                      : Colors.black,
+                  color: appConfig.highContrast ? Colors.white : Colors.black,
                 ),
                 minLines: 1,
                 maxLines: 2,
@@ -169,7 +196,7 @@ class _FieldTextWidgetState extends State<FieldTextWidget> {
                       color: prefs.highContrast ? Colors.white : Colors.black,
                     )),
                 onChanged: (String newText) {
-                  ttsProvider.setText(newText);
+                  ref.read(configProvider.notifier).setText(newText);
                 },
               ),
               SizedBox(
@@ -183,9 +210,8 @@ class _FieldTextWidgetState extends State<FieldTextWidget> {
                 children: [
                   Material(
                     borderRadius: BorderRadius.circular(16),
-                    color: configProvider.highContrast!
-                        ? Colors.yellow
-                        : Colors.orange,
+                    color:
+                        appConfig.highContrast ? Colors.yellow : Colors.orange,
                     child: InkWell(
                       onTap: () {
                         HapticFeedback.lightImpact();
@@ -204,7 +230,7 @@ class _FieldTextWidgetState extends State<FieldTextWidget> {
                           children: [
                             Icon(
                               Icons.favorite,
-                              color: configProvider.highContrast!
+                              color: appConfig.highContrast
                                   ? Colors.black
                                   : Colors.white,
                             ),
@@ -221,12 +247,12 @@ class _FieldTextWidgetState extends State<FieldTextWidget> {
                                         Orientation.portrait
                                     ? MediaQuery.of(context).size.width *
                                         0.68 *
-                                        configProvider.factorSize!
+                                        appConfig.factorSize
                                     : MediaQuery.of(context).size.height *
                                         0.68 *
-                                        configProvider.factorSize!,
+                                        appConfig.factorSize,
                                 fontWeight: FontWeight.bold,
-                                color: configProvider.highContrast!
+                                color: appConfig.highContrast
                                     ? Colors.black
                                     : Colors.white,
                               ),

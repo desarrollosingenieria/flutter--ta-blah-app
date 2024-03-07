@@ -1,60 +1,98 @@
-import 'package:flutter/material.dart';
+// ignore_for_file: no_leading_underscores_for_local_identifiers
+
+import 'package:flutter/services.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:tablah/src/constants/constants.dart';
 import 'package:tablah/src/data/local/user_preferences.dart';
+import 'package:tablah/src/models/app_config.dart';
 
-const int largeScreenSize = 1000;
-const int mediumScreenSize = 680;
-const int smallScreenSize = 360;
-const int customScreenSize = 1100;
+part 'config_provider.g.dart';
 
-class ConfigProvider with ChangeNotifier {
+@Riverpod(keepAlive: true)
+class Config extends _$Config {
   final prefs = UserPreferences();
-  double? _factorSize;
-  String? _factorText;
-  bool? _highlightFont;
-  bool? _highContrast;
-
-  void initConfig() {
-    _factorSize = prefs.factorSize;
-    _factorText = prefs.factorText;
-    _highContrast = prefs.highContrast;
-  }
+  @override
+  AppConfig build() => AppConfig(
+        factorSize: prefs.factorSize,
+        factorText: prefs.factorText,
+        highContrast: prefs.highContrast,
+        ttsVolume: prefs.volume,
+        ttsPitch: prefs.pitch,
+        ttsRate: prefs.rate,
+        highlightFont: prefs.highlightFont,
+      );
 
   void setFactorSize(double size, String factorText) {
-    
+    double? factorSize;
     if (factorText == 'grande') {
-      prefs.factorText = 'grande';
-      _factorText = 'grande';
-      prefs.factorSize = size > mediumScreenSize ? 0.04 : 0.08;
-      _factorSize = size > mediumScreenSize ? 0.04 : 0.08;
+      prefs.factorText = factorText;
+      prefs.factorSize = size > MEDIUM_SCREEN_SIZE ? 0.04 : 0.08;
+      factorSize = size > MEDIUM_SCREEN_SIZE ? 0.04 : 0.08;
     } else if (factorText == 'predeterminado') {
-      prefs.factorText = 'predeterminado';
-      _factorText = 'predeterminado';
-      prefs.factorSize = size > mediumScreenSize ? 0.036 : 0.06;
-      _factorSize = size > mediumScreenSize ? 0.036 : 0.06;
+      prefs.factorText = factorText;
+      prefs.factorSize = size > MEDIUM_SCREEN_SIZE ? 0.036 : 0.06;
+      factorSize = size > MEDIUM_SCREEN_SIZE ? 0.036 : 0.06;
     } else {
-      prefs.factorText = 'pequeño';
-      prefs.factorSize = size > mediumScreenSize ? 0.03 : 0.054;
-      _factorSize = size > mediumScreenSize ? 0.03 : 0.054;
-      _factorText = 'pequeño';
+      prefs.factorText = factorText;
+      prefs.factorSize = size > MEDIUM_SCREEN_SIZE ? 0.03 : 0.054;
+      factorSize = size > MEDIUM_SCREEN_SIZE ? 0.03 : 0.054;
     }
-
-    notifyListeners();
-  }
-
-  void setHighlightFont(bool status) {
-    _highlightFont = status;
-    prefs.highlightFont = status;
-    notifyListeners();
+    state = state.copyWith(factorText: factorText, factorSize: factorSize);
   }
 
   void setHighContrast(bool status) {
-    _highContrast = status;
     prefs.highContrast = status;
-    notifyListeners();
+    state = state.copyWith(highContrast: status);
   }
 
-  double? get factorSize => _factorSize;
-  String? get factorText => _factorText;
-  bool? get highlightFont => _highlightFont ?? false;
-  bool? get highContrast => _highContrast ?? false;
+  Future<void> setVolume(double volume) async {
+    double _volume = prefs.volume;
+    if (_volume + volume > 0 && _volume + volume <= 1) {
+      HapticFeedback.lightImpact();
+      _volume += volume;
+      prefs.volume = double.parse(_volume.toStringAsFixed(2));
+      state = state.copyWith(ttsVolume: _volume);
+    }
+  }
+
+  Future<void> setPitch(double pitch) async {
+    double _pitch = prefs.pitch;
+    if (_pitch + pitch > 0 && _pitch + pitch <= 1) {
+      HapticFeedback.lightImpact();
+      _pitch += pitch;
+      prefs.pitch = double.parse(_pitch.toStringAsFixed(2));
+      state = state.copyWith(ttsPitch: _pitch);
+    }
+  }
+
+  Future<void> setRate(double rate) async {
+    double _rate = prefs.rate;
+    if (_rate + rate > 0 && _rate + rate <= 1) {
+      HapticFeedback.lightImpact();
+      _rate += rate;
+      prefs.rate = double.parse(_rate.toStringAsFixed(2));
+      state = state.copyWith(ttsRate: _rate);
+    }
+  }
+
+  void setHighlightFont(bool status) {
+    prefs.highlightFont = status;
+    state = state.copyWith(highlightFont: status);
+  }
+
+  void setText(String text) {
+    state = state.copyWith(ttsText: text);
+  }
+
+  void deleteAllText() {
+    state = state.copyWith(ttsText: '');
+  }
+
+  void deleteLast() {
+    String? newText;
+    if (state.ttsText!.isNotEmpty) {
+      newText = state.ttsText!.substring(0, state.ttsText!.length - 1);
+      state = state.copyWith(ttsText: newText);
+    }
+  }
 }

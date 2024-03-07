@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tablah/src/provider/config_provider.dart';
 import 'package:tablah/src/provider/tts_provider.dart';
 
-class ButtonsWidget extends StatelessWidget {
+class ButtonsWidget extends ConsumerWidget {
   const ButtonsWidget({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    final ttsProvider = Provider.of<TTSProvider>(context);
-    final configProvider = Provider.of<ConfigProvider>(context);
+  Widget build(BuildContext context, WidgetRef ref) {
+    final appConfig = ref.watch(configProvider);
     return MediaQuery.of(context).orientation != Orientation.portrait
         ? Row(
             children: [
@@ -32,18 +31,20 @@ class ButtonsWidget extends StatelessWidget {
                                     Orientation.portrait
                                 ? MediaQuery.of(context).size.width *
                                     2.4 *
-                                    configProvider.factorSize!
+                                    appConfig.factorSize
                                 : MediaQuery.of(context).size.height *
                                     2.4 *
-                                    configProvider.factorSize!,
+                                    appConfig.factorSize,
                             fontWeight: FontWeight.bold,
                             color: Colors.white),
                       ),
                     ),
                     onTap: () {
-                      if (ttsProvider.textToSpeech != '') {
+                      if (appConfig.ttsText != '') {
                         HapticFeedback.lightImpact();
-                        ttsProvider.speak(text: ttsProvider.textToSpeech);
+                        ref
+                            .read(appTTSProvider.notifier)
+                            .speak(appConfig.ttsText!);
                       }
                       final FocusScopeNode focus = FocusScope.of(context);
                       if (!focus.hasPrimaryFocus && focus.hasFocus) {
@@ -74,7 +75,6 @@ class ButtonsWidget extends StatelessWidget {
                                   Orientation.portrait
                               ? MediaQuery.of(context).size.width * 0.18
                               : MediaQuery.of(context).size.height * 0.5,
-                          
                           child: Text(
                             'Si'.toUpperCase(),
                             style: TextStyle(
@@ -82,17 +82,17 @@ class ButtonsWidget extends StatelessWidget {
                                         Orientation.portrait
                                     ? MediaQuery.of(context).size.width *
                                         2.8 *
-                                        configProvider.factorSize!
+                                        appConfig.factorSize
                                     : MediaQuery.of(context).size.height *
                                         2.8 *
-                                        configProvider.factorSize!,
+                                        appConfig.factorSize,
                                 fontWeight: FontWeight.bold,
                                 color: Colors.white),
                           ),
                         ),
                         onTap: () {
                           HapticFeedback.lightImpact();
-                          ttsProvider.speak(text: 'Sí');
+                          ref.read(appTTSProvider.notifier).speak('Sí');
                         },
                       ),
                     ),
@@ -122,17 +122,17 @@ class ButtonsWidget extends StatelessWidget {
                                         Orientation.portrait
                                     ? MediaQuery.of(context).size.width *
                                         2.8 *
-                                        configProvider.factorSize!
+                                        appConfig.factorSize
                                     : MediaQuery.of(context).size.height *
                                         2.8 *
-                                        configProvider.factorSize!,
+                                        appConfig.factorSize,
                                 fontWeight: FontWeight.bold,
                                 color: Colors.white),
                           ),
                         ),
                         onTap: () {
                           HapticFeedback.lightImpact();
-                          ttsProvider.speak(text: 'No');
+                          ref.read(appTTSProvider.notifier).speak('No');
                         },
                       ),
                     ),
@@ -148,7 +148,7 @@ class ButtonsWidget extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(vertical: 20),
                   child: Material(
                     borderRadius: BorderRadius.circular(16),
-                    color: configProvider.highContrast! ? Colors.white : Colors.blue,
+                    color: appConfig.highContrast ? Colors.white : Colors.blue,
                     child: InkWell(
                       borderRadius: BorderRadius.circular(16),
                       child: Container(
@@ -164,18 +164,23 @@ class ButtonsWidget extends StatelessWidget {
                                       Orientation.portrait
                                   ? MediaQuery.of(context).size.width *
                                       2.4 *
-                                      configProvider.factorSize!
+                                      appConfig.factorSize
                                   : MediaQuery.of(context).size.height *
                                       2.4 *
-                                      configProvider.factorSize!,
+                                      appConfig.factorSize,
                               fontWeight: FontWeight.bold,
-                              color: configProvider.highContrast! ? Colors.black : Colors.white),
+                              color: appConfig.highContrast
+                                  ? Colors.black
+                                  : Colors.white),
                         ),
                       ),
                       onTap: () {
-                        if (ttsProvider.textToSpeech != '') {
+                        if (appConfig.ttsText != null &&
+                            appConfig.ttsText != '') {
                           HapticFeedback.lightImpact();
-                          ttsProvider.speak(text: ttsProvider.textToSpeech);
+                          ref
+                              .read(appTTSProvider.notifier)
+                              .speak(appConfig.ttsText!);
                         }
                         final FocusScopeNode focus = FocusScope.of(context);
                         if (!focus.hasPrimaryFocus && focus.hasFocus) {
@@ -191,7 +196,8 @@ class ButtonsWidget extends StatelessWidget {
                 children: [
                   Expanded(
                     child: Material(
-                      color: configProvider.highContrast! ? Colors.yellow : Colors.green,
+                      color:
+                          appConfig.highContrast ? Colors.yellow : Colors.green,
                       borderRadius: BorderRadius.circular(16),
                       child: InkWell(
                         borderRadius: BorderRadius.circular(16),
@@ -208,17 +214,19 @@ class ButtonsWidget extends StatelessWidget {
                                         Orientation.portrait
                                     ? MediaQuery.of(context).size.width *
                                         2.8 *
-                                        configProvider.factorSize!
+                                        appConfig.factorSize
                                     : MediaQuery.of(context).size.height *
                                         2.8 *
-                                        configProvider.factorSize!,
+                                        appConfig.factorSize,
                                 fontWeight: FontWeight.bold,
-                                color: configProvider.highContrast! ? Colors.black : Colors.white),
+                                color: appConfig.highContrast
+                                    ? Colors.black
+                                    : Colors.white),
                           ),
                         ),
                         onTap: () {
                           HapticFeedback.lightImpact();
-                          ttsProvider.speak(text: 'Sí');
+                          ref.read(appTTSProvider.notifier).speak('Sí');
                         },
                       ),
                     ),
@@ -232,7 +240,8 @@ class ButtonsWidget extends StatelessWidget {
                   Expanded(
                     child: Material(
                       borderRadius: BorderRadius.circular(16),
-                      color: configProvider.highContrast! ? Colors.purple : Colors.red,
+                      color:
+                          appConfig.highContrast ? Colors.purple : Colors.red,
                       child: InkWell(
                         borderRadius: BorderRadius.circular(16),
                         child: Container(
@@ -248,17 +257,19 @@ class ButtonsWidget extends StatelessWidget {
                                         Orientation.portrait
                                     ? MediaQuery.of(context).size.width *
                                         2.8 *
-                                        configProvider.factorSize!
+                                        appConfig.factorSize
                                     : MediaQuery.of(context).size.height *
                                         2.8 *
-                                        configProvider.factorSize!,
+                                        appConfig.factorSize,
                                 fontWeight: FontWeight.bold,
-                                color: configProvider.highContrast! ? Colors.black : Colors.white),
+                                color: appConfig.highContrast
+                                    ? Colors.black
+                                    : Colors.white),
                           ),
                         ),
                         onTap: () {
                           HapticFeedback.lightImpact();
-                          ttsProvider.speak(text: 'No');
+                          ref.read(appTTSProvider.notifier).speak('No');
                         },
                       ),
                     ),
