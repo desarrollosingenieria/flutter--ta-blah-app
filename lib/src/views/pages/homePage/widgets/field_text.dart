@@ -78,7 +78,6 @@ class FieldTextWidgetState extends ConsumerState<FieldTextWidget> {
                     ),
                   ),
                   onChanged: (String newText) {
-                    print(newText);
                     ref.read(configProvider.notifier).setText(newText);
                   },
                 ),
