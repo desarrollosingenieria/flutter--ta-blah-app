@@ -1,15 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:tablah/src/views/pages/homePage/home_page.dart';
+import 'package:tablah/core/constants/constants.dart';
+import 'package:tablah/src/communication/presentation/views/pages/communication_page.dart';
 
 class TABlah extends StatelessWidget {
   const TABlah({super.key});
-
+  
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      title: 'TA Blah',
+    return MaterialApp(
+      title: APP_NAME,
       debugShowCheckedModeBanner: false,
-      home: HomePage(),
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        useMaterial3: true,
+      ),
+      home: const CommunicationPage()
     );
   }
 }
