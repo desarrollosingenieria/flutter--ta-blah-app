@@ -44,6 +44,7 @@ const String HIGH_CONTRAST_OPTION = 'Alto contraste';
 
 // communications
 const String COMMUNICATE_BUTTON = 'DECIR';
+const String FAVORITES_BUTTON = 'Frases Guardadas';
 const String FIELD_TEXT_HINT = 'Escribe algo...';
 const String SPACE_TEXT = ' ';
 const String YES_TEXT = 'SI';

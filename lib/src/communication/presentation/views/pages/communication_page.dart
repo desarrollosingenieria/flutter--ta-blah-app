@@ -45,7 +45,7 @@ class CommunicationPage extends ConsumerWidget {
         padding: const EdgeInsets.all(20.0),
         child: Center(
           child: Column(
-            children: <Widget>[
+            children: [
               const FieldTextWidget(),
               SizedBox(
                 height:

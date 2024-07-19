@@ -7,9 +7,9 @@ environment:
   sdk: ">=2.19.6 <3.0.0"
 
 dependencies:
+  dartz: ^0.10.1
   flutter:
     sdk: flutter
-  dartz: ^0.10.1
   flutter_riverpod: ^2.4.10
   flutter_tts: ^3.6.3
   get_it: ^7.7.0
@@ -17,6 +17,7 @@ dependencies:
   hive_flutter: ^1.1.0
   riverpod_annotation: ^2.3.4
   shared_preferences: ^2.1.0
+  sizer: ^2.0.15
   url_launcher: ^6.2.4
 
 dev_dependencies:
@@ -35,8 +36,7 @@ flutter:
 
   assets:
     - assets/images/
-  
+
 flutter_native_splash:
   color: "#003A70"
   image: "assets/images/tablah-iso.png"
-
