@@ -26,8 +26,8 @@ class VoiceButtonWidget extends ConsumerWidget {
               TEST_VOICE_BUTTON,
               style: TextStyle(
                 fontSize: orientation == Orientation.portrait
-                      ? size.width * appParameters.factorSize
-                      : size.height * appParameters.factorSize,
+                    ? size.width * appParameters.factorSize
+                    : size.height * appParameters.factorSize,
                 fontWeight: FontWeight.bold,
                 color: appParameters.highContrast ? Colors.black : Colors.white,
               ),

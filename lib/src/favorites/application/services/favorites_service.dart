@@ -14,13 +14,11 @@ class FavoritesService {
   Future<bool> addFavorite(String text) async {
     final favorite = Favorite(text: text);
     final result = await repository.addFavorite(favorite);
-    return result.fold((l) => throw l, (r) => r
-      
-    );
+    return result.fold((l) => throw l, (r) => r);
   }
 
-  Future<bool> removeFavorite(int id)  async {
+  Future<bool> removeFavorite(int id) async {
     final result = await repository.removeFavorite(id);
     return result.fold((l) => throw l, (r) => r);
-}
+  }
 }

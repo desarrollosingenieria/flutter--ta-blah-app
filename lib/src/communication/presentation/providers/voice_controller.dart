@@ -95,14 +95,14 @@ class VoiceController extends _$VoiceController {
     if (state.text.isNotEmpty) {
       newText = state.text.substring(0, state.text.length - 1);
       final VoiceParameters parameters = VoiceParameters(
-      volume: state.volume,
-      rate: state.rate,
-      pitch: state.pitch,
-      text: newText,
-    );
+        volume: state.volume,
+        rate: state.rate,
+        pitch: state.pitch,
+        text: newText,
+      );
 
-    state = parameters;
-    return voiceService.setVoiceParameters(parameters);
+      state = parameters;
+      return voiceService.setVoiceParameters(parameters);
     }
     return Future.value(false);
   }

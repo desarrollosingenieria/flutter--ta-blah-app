@@ -41,19 +41,13 @@ class CommunicationPage extends ConsumerWidget {
           ),
         ],
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(20.0),
+      body: const Padding(
+        padding: EdgeInsets.all(10.0),
         child: Center(
           child: Column(
             children: [
-              const FieldTextWidget(),
-              SizedBox(
-                height:
-                    MediaQuery.of(context).orientation == Orientation.portrait
-                        ? null
-                        : MediaQuery.of(context).size.height * 0.04,
-              ),
-              const Expanded(child: ButtonsWidget()),
+              FieldTextWidget(),
+              ButtonsWidget(),
             ],
           ),
         ),

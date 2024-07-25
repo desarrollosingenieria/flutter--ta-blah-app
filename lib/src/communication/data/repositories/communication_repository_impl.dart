@@ -6,7 +6,8 @@ import 'package:dartz/dartz.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 
 class CommunicationRepositoryImpl implements CommunicationRepository {
-  final CommunicationLocalDataSource voiceLocalDataSource = HiveCommunicationLocalDataSourceImpl();
+  final CommunicationLocalDataSource voiceLocalDataSource =
+      HiveCommunicationLocalDataSourceImpl();
   final FlutterTts tts = FlutterTts();
 
   @override
@@ -74,5 +75,4 @@ class CommunicationRepositoryImpl implements CommunicationRepository {
 
   @override
   VoiceParameters get voiceParameters => voiceLocalDataSource.voiceParameters;
-
 }

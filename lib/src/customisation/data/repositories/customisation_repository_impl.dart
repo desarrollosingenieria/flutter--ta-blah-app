@@ -5,13 +5,14 @@ import 'package:tablah/src/customisation/domain/repositories/customisation_repos
 import 'package:dartz/dartz.dart';
 
 class CustomisationRepositoryImpl implements CustomisationRepository {
-
-  final CustomisationLocalDataSource customisationLocalDataSource = HiveCustomisationLocalDataSourceImpl();
+  final CustomisationLocalDataSource customisationLocalDataSource =
+      HiveCustomisationLocalDataSourceImpl();
 
   @override
   Future<Either<Failure, bool>> clearAppParameters() async {
     try {
-      final bool result = await customisationLocalDataSource.clearAppParameters();
+      final bool result =
+          await customisationLocalDataSource.clearAppParameters();
       return Right(result);
     } on LocalFailure {
       return Left(LocalFailure(message: 'Failed to clear app parameters'));
@@ -21,7 +22,8 @@ class CustomisationRepositoryImpl implements CustomisationRepository {
   @override
   Future<Either<Failure, AppParameters>> getAppParameters() async {
     try {
-      final AppParameters parameters = await customisationLocalDataSource.getAppParameters();
+      final AppParameters parameters =
+          await customisationLocalDataSource.getAppParameters();
       return Right(parameters);
     } on LocalFailure {
       return Left(LocalFailure(message: 'Failed to get app parameters'));
@@ -31,7 +33,8 @@ class CustomisationRepositoryImpl implements CustomisationRepository {
   @override
   Future<Either<Failure, bool>> initAppParameters() async {
     try {
-      final bool result = await customisationLocalDataSource.initAppParameters();
+      final bool result =
+          await customisationLocalDataSource.initAppParameters();
       return Right(result);
     } on LocalFailure {
       return Left(LocalFailure(message: 'Failed to initialize app parameters'));
@@ -39,9 +42,11 @@ class CustomisationRepositoryImpl implements CustomisationRepository {
   }
 
   @override
-  Future<Either<Failure, bool>> setAppParameters(AppParameters parameters) async {
-     try {
-      final bool result = await customisationLocalDataSource.setAppParameters(parameters);
+  Future<Either<Failure, bool>> setAppParameters(
+      AppParameters parameters) async {
+    try {
+      final bool result =
+          await customisationLocalDataSource.setAppParameters(parameters);
       return Right(result);
     } on LocalFailure {
       return Left(LocalFailure(message: 'Failed to set app parameters'));
@@ -49,7 +54,8 @@ class CustomisationRepositoryImpl implements CustomisationRepository {
   }
 
   @override
-  bool get isAppParametersSet => customisationLocalDataSource.isAppParametersSet;
+  bool get isAppParametersSet =>
+      customisationLocalDataSource.isAppParametersSet;
 
   @override
   AppParameters get appParameters => customisationLocalDataSource.appParameters;

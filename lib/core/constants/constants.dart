@@ -44,12 +44,11 @@ const String HIGH_CONTRAST_OPTION = 'Alto contraste';
 
 // communications
 const String COMMUNICATE_BUTTON = 'DECIR';
-const String FAVORITES_BUTTON = 'Frases Guardadas';
+const String FAVORITES_BUTTON = 'Favoritos';
 const String FIELD_TEXT_HINT = 'Escribe algo...';
 const String SPACE_TEXT = ' ';
 const String YES_TEXT = 'SI';
 const String NO_TEXT = 'NO';
-
 
 // favorites
 const String FAVORITES_TEXT = 'Lista de favoritos';

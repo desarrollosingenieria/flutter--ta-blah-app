@@ -11,7 +11,6 @@ abstract class FavoritesLocalDataSource {
 }
 
 class HiveFavoritesLocalDataSource implements FavoritesLocalDataSource {
-
   HiveFavoritesLocalDataSource() {
     Hive.initFlutter();
   }
@@ -23,7 +22,7 @@ class HiveFavoritesLocalDataSource implements FavoritesLocalDataSource {
       debugPrint(favorite.text);
       box.add(FavoriteModel.fromEntity(favorite).toJson());
       return true;
-    } catch (e)  {  
+    } catch (e) {
       debugPrint(e.toString());
       throw LocalFailure(message: e.toString());
     }
@@ -41,15 +40,16 @@ class HiveFavoritesLocalDataSource implements FavoritesLocalDataSource {
     }
   }
 
-  @override 
+  @override
   List<Favorite> get getAllFavorites {
     try {
-
-      return Hive.box('favorites').values.map((favorite) => FavoriteModel.fromJson(favorite)).toList();
+      return Hive.box('favorites')
+          .values
+          .map((favorite) => FavoriteModel.fromJson(favorite))
+          .toList();
     } catch (e) {
       debugPrint(e.toString());
       throw LocalFailure(message: e.toString());
     }
   }
-
 }

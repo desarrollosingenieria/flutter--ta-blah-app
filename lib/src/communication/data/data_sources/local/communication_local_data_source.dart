@@ -11,7 +11,8 @@ abstract class CommunicationLocalDataSource {
   VoiceParameters get voiceParameters;
 }
 
-class HiveCommunicationLocalDataSourceImpl implements CommunicationLocalDataSource {
+class HiveCommunicationLocalDataSourceImpl
+    implements CommunicationLocalDataSource {
   HiveCommunicationLocalDataSourceImpl() {
     Hive.initFlutter();
   }

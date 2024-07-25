@@ -28,7 +28,9 @@ class AddFavoriteWidget extends ConsumerWidget {
                             1.2 *
                             appParameters.factorSize,
                     fontWeight: FontWeight.bold,
-                    color: appParameters.highContrast ? Colors.white : Colors.black,
+                    color: appParameters.highContrast
+                        ? Colors.white
+                        : Colors.black,
                   ),
                   minLines: 1,
                   maxLines: 1,
@@ -147,7 +149,8 @@ class AddFavoriteWidget extends ConsumerWidget {
                               1.2 *
                               appParameters.factorSize,
                   fontWeight: FontWeight.bold,
-                  color: appParameters.highContrast ? Colors.white : Colors.black,
+                  color:
+                      appParameters.highContrast ? Colors.white : Colors.black,
                 ),
                 minLines: 1,
                 maxLines: 2,
@@ -181,8 +184,9 @@ class AddFavoriteWidget extends ConsumerWidget {
                     ),
                     hintText: 'Agregar favoritos...',
                     hintStyle: TextStyle(
-                      color:
-                          appParameters.highContrast ? Colors.white : Colors.black,
+                      color: appParameters.highContrast
+                          ? Colors.white
+                          : Colors.black,
                     )),
               ),
               SizedBox(
@@ -196,7 +200,8 @@ class AddFavoriteWidget extends ConsumerWidget {
                 children: [
                   Material(
                     borderRadius: BorderRadius.circular(16),
-                    color: appParameters.highContrast ? Colors.white : Colors.blue,
+                    color:
+                        appParameters.highContrast ? Colors.white : Colors.blue,
                     child: InkWell(
                       borderRadius: BorderRadius.circular(16),
                       onTap: () {

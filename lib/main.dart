@@ -11,5 +11,3 @@ Future<void> main() async {
   await Hive.openBox('favorites');
   runApp(const ProviderScope(child: TABlah(),),);
 }
-
-

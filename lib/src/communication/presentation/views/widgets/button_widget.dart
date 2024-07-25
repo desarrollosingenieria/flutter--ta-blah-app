@@ -5,7 +5,7 @@ import 'package:tablah/src/customisation/presentation/providers/customisation_co
 class ButtonWidget extends ConsumerWidget {
   final String title, text;
   final Color color;
-  final double height, width, fontSize;
+  final double? height, width, fontSize;
   final Function() onTap;
   final bool expanded;
   const ButtonWidget({
@@ -13,9 +13,9 @@ class ButtonWidget extends ConsumerWidget {
     required this.title,
     required this.text,
     required this.color,
-    required this.height,
-    required this.width,
-    required this.fontSize,
+    this.height,
+    this.width,
+    this.fontSize,
     required this.onTap,
     required this.expanded,
   });
@@ -47,7 +47,14 @@ class ButtonWidget extends ConsumerWidget {
             child: Text(
               title,
               style: TextStyle(
-                  fontSize: fontSize, //* appParameters.factorSize,
+                  fontSize:
+                      MediaQuery.of(context).orientation == Orientation.portrait
+                          ? MediaQuery.of(context).size.width *
+                              2.4 *
+                              appParameters.factorSize
+                          : MediaQuery.of(context).size.height *
+                              2.4 *
+                              appParameters.factorSize,
                   fontWeight: FontWeight.bold,
                   color:
                       appParameters.highContrast ? Colors.black : Colors.white),

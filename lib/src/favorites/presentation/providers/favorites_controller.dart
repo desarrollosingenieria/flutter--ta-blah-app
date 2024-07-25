@@ -1,4 +1,3 @@
-
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:tablah/src/favorites/application/services/favorites_service.dart';
 import 'package:tablah/src/favorites/data/data_sources/local/favorites_local_data_source.dart';
@@ -15,7 +14,7 @@ class FavoritesController extends _$FavoritesController {
     ),
   );
   List<Favorite> favorites = [];
-  
+
   @override
   List<Favorite> build() => service.favorites;
 
@@ -28,4 +27,4 @@ class FavoritesController extends _$FavoritesController {
     state.removeAt(id);
     return service.removeFavorite(id);
   }
-  }
+}
